@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#ping").click(function () {
+    /*$("#ping").click(function () {
         $.ajax({
             url:"/ping",
             type:"GET",
@@ -44,7 +44,21 @@ $(document).ready(function () {
                 alert(JSON.stringify(result));
             }
         });
-    });
+    });*/
+
+    $("#organization").click(function () {
+        var id = $("#inputOrgId").val();
+        $.ajax({
+            url:"/api/organization/" + id,
+            type:"GET",
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(result){
+                console.log(result);
+                alert(JSON.stringify(result));
+            }
+        });
+    })
 });
 
 var clearFields = function () {

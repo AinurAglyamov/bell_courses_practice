@@ -1,12 +1,10 @@
 package ru.bellintegrator.practice.reference.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 @Entity
-public class Country {
+@Table(name = "Document_Type")
+public class DocumentType {
 
     @Id
     @GeneratedValue
@@ -19,13 +17,12 @@ public class Country {
     @Version
     private Integer version;
 
-    public Country() {
+    public DocumentType() {
     }
 
-    public Country(Integer code, String name) {
+    public DocumentType(Integer code, String name) {
         this.code = code;
         this.name = name;
-        this.version = version;
     }
 
     public Long getId() {

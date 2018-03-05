@@ -28,6 +28,9 @@ public class Organization {
     @OneToMany(mappedBy = "organization")
     private List<Office> offices;
 
+    @Version
+    private Integer version;
+
     public Organization() {
     }
 

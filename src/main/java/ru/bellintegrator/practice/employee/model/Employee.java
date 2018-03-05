@@ -2,7 +2,7 @@ package ru.bellintegrator.practice.employee.model;
 
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.reference.model.Country;
-import ru.bellintegrator.practice.reference.model.Document;
+import ru.bellintegrator.practice.reference.model.DocumentType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,12 +41,15 @@ public class Employee {
     private Office office;
 
     @ManyToOne
-    @JoinColumn(name = "doc_code")
-    private Document document;
+    @JoinColumn(name = "doc_type_id")
+    private DocumentType documentType;
 
     @ManyToOne
-    @JoinColumn(name = "citizenship_code")
+    @JoinColumn(name = "country_id")
     private Country country;
+
+    @Version
+    private Integer version;
 
     public Employee() {
     }
@@ -143,12 +146,12 @@ public class Employee {
         this.office = office;
     }
 
-    public Document getDocument() {
-        return document;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public void setDocument(Document document) {
-        this.document = document;
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 
     public Country getCountry() {

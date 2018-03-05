@@ -27,6 +27,9 @@ public class Office {
     @OneToMany(mappedBy = "office")
     private List<Employee> employees;
 
+    @Version
+    private Integer version;
+
     public Office() {
     }
 
@@ -89,8 +92,13 @@ public class Office {
         this.employees = employees;
     }
 
-    public void addUser(Employee employee) {
+    public void addEmployee(Employee employee) {
         getEmployees().add(employee);
+        employee.setOffice(this);
+    }
 
+    public void removeEmployee(Employee employee) {
+        getEmployees().remove(employee);
+        employee.setOffice(null);
     }
 }
