@@ -13,18 +13,22 @@ public class Office {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
     private String address;
+
+    @Column(nullable = false)
     private String phone;
 
-    @Column(name = "is_active")
+    @Column(nullable = false)
     private boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
     private Organization organization;
 
-    @OneToMany(mappedBy = "office")
+    @OneToMany(mappedBy = "office", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees;
 
     @Version

@@ -1,9 +1,6 @@
 package ru.bellintegrator.practice.user.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -12,7 +9,10 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    private String email;
+    @Column(nullable = false)
+    private String login;
+
+    @Column(nullable = false)
     private String password;
 
     @Version
@@ -21,8 +21,8 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password) {
-        this.email = email;
+    public User(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 
@@ -30,12 +30,12 @@ public class User {
         return id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getLogin() {
+        return login;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

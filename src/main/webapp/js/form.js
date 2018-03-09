@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    //alert($("#inputActive").is(':checked'));
+
     /*$("#ping").click(function () {
         $.ajax({
             url:"/ping",
@@ -45,7 +47,6 @@ $(document).ready(function () {
             }
         });
     });*/
-
     $("#organization").click(function () {
         var id = $("#inputOrgId").val();
         $.ajax({
@@ -58,7 +59,68 @@ $(document).ready(function () {
                 alert(JSON.stringify(result));
             }
         });
-    })
+    });
+
+    $("#saveOrganization").click(function () {
+        var organization = {
+            name: $("#inputName").val(),
+            fullName: $("#inputFullName").val(),
+            inn: $("#inputInn").val(),
+            kpp: $("#inputKpp").val(),
+            address: $("#inputAddress").val(),
+            phone: $("#inputPhone").val(),
+            isActive: $("#inputActive").is(':checked')
+        };
+        $.ajax({
+            url:"/api/organization/save",
+            type:"POST",
+            data: JSON.stringify(organization),
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(result){
+                console.log(result);
+                alert(JSON.stringify(result));
+            }
+        });
+    });
+    $("#updateOrganization").click(function () {
+        var organization = {
+            id: $("#inputId").val(),
+            name: $("#inputName").val(),
+            fullName: $("#inputFullName").val(),
+            inn: $("#inputInn").val(),
+            kpp: $("#inputKpp").val(),
+            address: $("#inputAddress").val(),
+            phone: $("#inputPhone").val(),
+            isActive: $("#inputActive").is(':checked')
+        };
+        $.ajax({
+            url:"/api/organization/update",
+            type:"POST",
+            data: JSON.stringify(organization),
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(result){
+                console.log(result);
+                alert(JSON.stringify(result));
+            }
+        });
+    });
+    $("#deleteOrganization").click(function () {
+        var id = $("#inputDeletedId").val();
+        $.ajax({
+            url:"/api/organization/delete",
+            type:"POST",
+            data: id,
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(result){
+                console.log(result);
+                alert(JSON.stringify(result));
+            }
+        });
+    });
+
 });
 
 var clearFields = function () {

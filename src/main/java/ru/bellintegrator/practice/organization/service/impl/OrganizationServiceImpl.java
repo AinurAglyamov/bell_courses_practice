@@ -1,5 +1,7 @@
 package ru.bellintegrator.practice.organization.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
+    private final Logger log = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
     private OrganizationDao dao;
 
@@ -18,11 +21,13 @@ public class OrganizationServiceImpl implements OrganizationService {
         this.dao = dao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @Transactional(readOnly = true)
     public OrganizationView loadById(Long id) {
         Organization organization = dao.loadById(id);
-
 
         OrganizationView view = new OrganizationView();
 
@@ -36,5 +41,57 @@ public class OrganizationServiceImpl implements OrganizationService {
         view.isActive = organization.isActive();
 
         return view;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void save(OrganizationView view) {
+        Organization organization = new Organization();
+
+        organization.setName(view.name);
+        organization.setFullName(view.fullName);
+        organization.setInn(view.inn);
+        organization.setKpp(view.kpp);
+        organization.setAddress(view.address);
+        organization.setPhone(view.phone);
+        organization.setActive(view.isActive);
+
+        dao.save(organization);
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void update(OrganizationView view) {
+        log.info(view.toString());
+
+        Organization organization = new Organization();
+
+        organization.setId(view.id);
+        organization.setName(view.name);
+        organization.setFullName(view.fullName);
+        organization.setInn(view.inn);
+        organization.setKpp(view.kpp);
+        organization.setAddress(view.address);
+        organization.setPhone(view.phone);
+        organization.setActive(view.isActive);
+
+        dao.update(organization);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        dao.delete(id);
     }
 }

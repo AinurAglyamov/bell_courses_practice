@@ -17,4 +17,27 @@ public interface OrganizationDao {
      * @return
      */
     Organization loadById(Long id);
+
+    /**
+     * add Organization
+     *
+     * @param organization
+     *
+     *
+     */
+    void save(Organization organization);
+
+    /**
+     * update Organization
+     *
+     * @param organization
+     */
+    void update(Organization organization);
+
+    /**
+     * delete Organization
+     *
+     * @param id
+     */
+    void delete(Long id);
 }

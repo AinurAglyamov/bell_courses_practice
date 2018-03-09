@@ -20,16 +20,17 @@ public class Employee {
     @Column(name = "second_name")
     private String secondName;
 
-    @Column(name = "middle_name")
     private String middleName;
 
+    @Column(nullable = false)
     private String position;
+
+    @Column(nullable = false)
     private String phone;
 
-    @Column(name = "is_identified")
+    @Column(nullable = false)
     private boolean isIdentified;
 
-    @Column(name = "doc_number")
     private String docNumber;
 
     @Column(name = "doc_date")

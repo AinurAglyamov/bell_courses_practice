@@ -12,20 +12,27 @@ public class Organization {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "full_name")
+    @Column(nullable = false)
     private String fullName;
 
+    @Column(nullable = false)
     private String inn;
+
+    @Column(nullable = false)
     private String kpp;
+
     private String address;
+
+    @Column(nullable = false)
     private String phone;
 
-    @Column(name = "is_active")
+    @Column(nullable = false)
     private boolean isActive;
 
-    @OneToMany(mappedBy = "organization")
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Office> offices;
 
     @Version
@@ -45,6 +52,10 @@ public class Organization {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -105,6 +116,14 @@ public class Organization {
 
     public List<Office> getOffices() {
         return offices;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public void setOffices(List<Office> offices) {
