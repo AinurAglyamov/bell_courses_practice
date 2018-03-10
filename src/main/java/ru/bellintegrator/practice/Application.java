@@ -11,6 +11,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import ru.bellintegrator.practice.organization.controller.impl.OrganizationControllerImpl;
+import ru.bellintegrator.practice.organization.dao.impl.OrganizationDaoImpl;
+import ru.bellintegrator.practice.organization.service.impl.OrganizationServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -23,7 +25,7 @@ import java.util.Locale;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
-@ImportResource("spring_mvc_config.xml")
+//@ImportResource("spring_mvc_config.xml")
 @SpringBootApplication
 public class Application {
 
@@ -59,8 +61,7 @@ public class Application {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring REST Sample with Swagger")
-                .description("Spring REST Sample with Swagger")
+                .title("Система учета сотрудников в организации")
                 .contact("https://github.com/AinurAglyamov/bell_courses_practice")
                 .version("1.0")
                 .build();

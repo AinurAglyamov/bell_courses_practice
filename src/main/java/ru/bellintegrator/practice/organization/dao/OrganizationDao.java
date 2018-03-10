@@ -2,6 +2,8 @@ package ru.bellintegrator.practice.organization.dao;
 
 import ru.bellintegrator.practice.organization.model.Organization;
 
+import java.util.List;
+
 /**
  *
  * DAO для работы с Organization
@@ -17,6 +19,15 @@ public interface OrganizationDao {
      * @return
      */
     Organization loadById(Long id);
+
+    /**
+     *
+     * get Organizations
+     *
+     * @param organization
+     * @return
+     */
+    List<Organization> list(Organization organization);
 
     /**
      * add Organization

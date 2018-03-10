@@ -15,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping(value = "/api", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/organization", produces = APPLICATION_JSON_VALUE)
 @Api(value = "Organization controller API")
 public class OrganizationControllerImpl implements OrganizationController{
 
@@ -27,29 +27,29 @@ public class OrganizationControllerImpl implements OrganizationController{
     }
 
     @Override
-    @ApiOperation(value = "getOrganizationById", nickname = "getOrganizationById", httpMethod = "GET")
-    @RequestMapping(value = "/organization/{id}", method = {GET})
+    @ApiOperation(value = "get Organization by id", httpMethod = "GET")
+    @RequestMapping(value = "/{id}", method = {GET})
     public OrganizationView organizationById(@PathVariable Long id) {
         return organizationService.loadById(id);
     }
 
     @Override
-    @ApiOperation(value = "addOrganization", nickname = "addOrganization", httpMethod = "POST")
-    @RequestMapping(value = "/organization/save", method = {POST})
+    @ApiOperation(value = "add Organization", httpMethod = "POST")
+    @RequestMapping(value = "/save", method = {POST})
     public void saveOrganization(@RequestBody OrganizationView organization) {
         organizationService.save(organization);
     }
 
     @Override
-    @ApiOperation(value = "updateOrganization", nickname = "updateOrganization", httpMethod = "POST")
-    @RequestMapping(value = "/organization/update", method = {POST})
+    @ApiOperation(value = "update Organization", httpMethod = "POST")
+    @RequestMapping(value = "/update", method = {POST})
     public void updateOrganization(@RequestBody OrganizationView organization) {
         organizationService.update(organization);
     }
 
     @Override
-    @ApiOperation(value = "deleteOrganization", nickname = "deleteOrganization", httpMethod = "POST")
-    @RequestMapping(value = "/organization/delete", method = {POST})
+    @ApiOperation(value = "delete Organization", httpMethod = "POST")
+    @RequestMapping(value = "/delete", method = {POST})
     public void deleteOrganization(@RequestBody Long id) {
         organizationService.delete(id);
     }
