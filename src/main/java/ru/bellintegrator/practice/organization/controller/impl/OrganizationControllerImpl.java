@@ -10,6 +10,8 @@ import ru.bellintegrator.practice.organization.controller.OrganizationController
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -52,5 +54,13 @@ public class OrganizationControllerImpl implements OrganizationController{
     @RequestMapping(value = "/delete", method = {POST})
     public void deleteOrganization(@RequestBody Long id) {
         organizationService.delete(id);
+    }
+
+
+    @Override
+    @ApiOperation(value = "get Organization list", httpMethod = "POST")
+    @RequestMapping(value = "/list", method = {POST})
+    public List<OrganizationView> list(@RequestBody OrganizationView view) {
+        return organizationService.list(view);
     }
 }

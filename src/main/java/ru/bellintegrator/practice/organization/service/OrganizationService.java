@@ -3,6 +3,8 @@ package ru.bellintegrator.practice.organization.service;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
+import java.util.List;
+
 public interface OrganizationService {
 
     /**
@@ -40,4 +42,12 @@ public interface OrganizationService {
      *
      */
     void delete(Long id);
+
+    /**
+     * get Organizations
+     *
+     * @param view
+     * @return JSON organizations value
+     */
+    List<OrganizationView> list(OrganizationView view);
 }

@@ -13,7 +13,6 @@ import ru.bellintegrator.practice.Application;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.organization.model.Organization;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -117,7 +116,6 @@ public class OrganizationDaoTest {
         organization2.setActive(true);
 
         assertTrue(dao.list(organization2).isEmpty());
-
 
     }
 }

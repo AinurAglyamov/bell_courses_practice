@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
+import java.util.List;
+
 public interface OrganizationController {
 
     /**
@@ -34,4 +36,13 @@ public interface OrganizationController {
      * @param id
      */
     void deleteOrganization(@RequestBody Long id);
+
+    /**
+     *
+     * get Organization list
+     *
+     * @param view
+     * @return JSON organizations value
+     */
+    List<OrganizationView> list(OrganizationView view);
 }

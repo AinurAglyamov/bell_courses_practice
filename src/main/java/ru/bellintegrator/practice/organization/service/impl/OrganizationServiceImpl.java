@@ -10,6 +10,10 @@ import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
     private final Logger log = LoggerFactory.getLogger(OrganizationServiceImpl.class);
@@ -93,5 +97,36 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional
     public void delete(Long id) {
         dao.delete(id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public List<OrganizationView> list(OrganizationView view) {
+        Organization organization = new Organization();
+
+        organization.setName(view.name);
+        organization.setInn(view.inn);
+        organization.setActive(view.isActive);
+
+        List<Organization> organizations = dao.list(organization);
+
+        Function<Organization, OrganizationView> mapOrganization = o -> {
+            OrganizationView organizationView = new OrganizationView();
+            organizationView.id = o.getId();
+            organizationView.name = o.getName();
+            organizationView.fullName = o.getFullName();
+            organizationView.inn = o.getInn();
+            organizationView.kpp = o.getKpp();
+            organizationView.address = o.getAddress();
+            organizationView.phone = o.getPhone();
+            organizationView.isActive = o.isActive();
+
+            return organizationView;
+        };
+
+        return organizations.stream().map(mapOrganization).collect(Collectors.toList());
     }
 }
