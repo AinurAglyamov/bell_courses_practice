@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.organization.model;
 import ru.bellintegrator.practice.office.model.Office;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -115,6 +116,9 @@ public class Organization {
     }
 
     public List<Office> getOffices() {
+        if(offices == null){
+            offices = new ArrayList<>();
+        }
         return offices;
     }
 

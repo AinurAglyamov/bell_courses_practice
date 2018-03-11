@@ -31,6 +31,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional(readOnly = true)
     public OrganizationView loadById(Long id) {
+        log.info("organization id = " + id);
+
         Organization organization = dao.loadById(id);
 
         OrganizationView view = new OrganizationView();
@@ -44,6 +46,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         view.phone = organization.getPhone();
         view.isActive = organization.isActive();
 
+        log.info(view.toString());
+
         return view;
     }
 
@@ -54,6 +58,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void save(OrganizationView view) {
+        log.info(view.toString());
+
         Organization organization = new Organization();
 
         organization.setName(view.name);
@@ -105,6 +111,8 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public List<OrganizationView> list(OrganizationView view) {
+        log.info(view.toString());
+
         Organization organization = new Organization();
 
         organization.setName(view.name);
@@ -117,12 +125,9 @@ public class OrganizationServiceImpl implements OrganizationService {
             OrganizationView organizationView = new OrganizationView();
             organizationView.id = o.getId();
             organizationView.name = o.getName();
-            organizationView.fullName = o.getFullName();
-            organizationView.inn = o.getInn();
-            organizationView.kpp = o.getKpp();
-            organizationView.address = o.getAddress();
-            organizationView.phone = o.getPhone();
             organizationView.isActive = o.isActive();
+
+            log.info(organizationView.toString());
 
             return organizationView;
         };

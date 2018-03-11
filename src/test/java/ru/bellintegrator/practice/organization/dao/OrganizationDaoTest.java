@@ -29,6 +29,7 @@ public class OrganizationDaoTest {
     private OrganizationDao dao;
 
     private Organization organization;
+    private Office office;
 
     @Before
     public void initTest() {
@@ -38,9 +39,18 @@ public class OrganizationDaoTest {
         organization.setFullName("Общество с ограниченной ответственностью Открытие");
         organization.setInn("0101010101");
         organization.setKpp("010101010");
-        organization.setAddress("Groove Street");
+        organization.setAddress("Grove Street");
         organization.setPhone("7 (911) 333-12-44");
         organization.setActive(true);
+
+        office = new Office();
+
+        office.setName("Офис в Затоне");
+        office.setAddress("г. Уфа, ул. Успенского, д. 33");
+        office.setPhone("+7 (347) 271-12-35");
+        office.setActive(true);
+
+        organization.addOffice(office);
     }
 
     @Test
@@ -50,7 +60,6 @@ public class OrganizationDaoTest {
         Long id = organization.getId();
         String name = organization.getName();
 
-        System.out.println(id);
         assertNotNull(dao.loadById(id));
         assertEquals(name, dao.loadById(id).getName());
     }
@@ -59,9 +68,8 @@ public class OrganizationDaoTest {
     public void testSave() {
         dao.save(organization);
 
-        System.out.println(organization.getId());
-
         assertNotNull(organization.getId());
+        assertNotNull(office.getId());
     }
 
     @Test
