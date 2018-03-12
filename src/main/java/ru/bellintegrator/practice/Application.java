@@ -1,5 +1,7 @@
 package ru.bellintegrator.practice;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +51,8 @@ public class Application {
         return sessionLocaleResolver;
     }
 
+
+
     @Bean
     public Docket postApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -66,5 +70,7 @@ public class Application {
                 .version("1.0")
                 .build();
     }
+
+
 }
 //.pathMapping("/")

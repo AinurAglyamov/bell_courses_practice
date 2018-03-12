@@ -71,7 +71,8 @@ public class OfficeDaoImpl implements OfficeDao {
      */
     @Override
     public List<Office> list(Office office) {
-        Organization organization = office.getOrganization();
+        //Organization organization = office.getOrganization();
+        Long orgId = office.getOrganization().getId();
         String name = office.getName();
         String phone = office.getPhone();
         boolean isActive = office.isActive();
@@ -84,8 +85,8 @@ public class OfficeDaoImpl implements OfficeDao {
 
         Predicate criteria = builder.conjunction();
 
-        if(organization != null) {
-            Predicate p = builder.equal(officeRoot.get("organization"), organization);
+        if(orgId != null) {
+            Predicate p = builder.equal(officeRoot.get("organization").get("id"), orgId);
             criteria = builder.and(criteria, p);
         }
 

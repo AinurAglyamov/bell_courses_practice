@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.organization.controller.OrganizationController;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
+import ru.bellintegrator.practice.organization.view.OrganizationFilter;
+import ru.bellintegrator.practice.organization.view.OrganizationToSave;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class OrganizationControllerImpl implements OrganizationController{
     @Override
     @ApiOperation(value = "add Organization", httpMethod = "POST")
     @RequestMapping(value = "/save", method = {POST})
-    public void saveOrganization(@RequestBody OrganizationView organization) {
+    public void saveOrganization(@RequestBody OrganizationToSave organization) {
         organizationService.save(organization);
     }
 
@@ -60,7 +62,7 @@ public class OrganizationControllerImpl implements OrganizationController{
     @Override
     @ApiOperation(value = "get Organization list", httpMethod = "POST")
     @RequestMapping(value = "/list", method = {POST})
-    public List<OrganizationView> list(@RequestBody OrganizationView view) {
+    public List<OrganizationView> list(@RequestBody OrganizationFilter view) {
         return organizationService.list(view);
     }
 }

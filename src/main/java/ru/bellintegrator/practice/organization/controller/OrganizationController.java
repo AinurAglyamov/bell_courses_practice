@@ -3,6 +3,8 @@ package ru.bellintegrator.practice.organization.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import ru.bellintegrator.practice.organization.view.OrganizationFilter;
+import ru.bellintegrator.practice.organization.view.OrganizationToSave;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public interface OrganizationController {
      *
      * @param organization
      */
-    void saveOrganization(@RequestBody OrganizationView organization);
+    void saveOrganization(@RequestBody OrganizationToSave organization);
 
     /**
      * update Organization
@@ -44,5 +46,5 @@ public interface OrganizationController {
      * @param view
      * @return JSON organizations value
      */
-    List<OrganizationView> list(OrganizationView view);
+    List<OrganizationView> list(OrganizationFilter view);
 }

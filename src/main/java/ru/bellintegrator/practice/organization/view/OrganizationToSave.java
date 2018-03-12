@@ -1,13 +1,7 @@
 package ru.bellintegrator.practice.organization.view;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
+public class OrganizationToSave {
 
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrganizationView {
-
-    public Long id;
     public String name;
     public String fullName;
     public String inn;
@@ -16,11 +10,10 @@ public class OrganizationView {
     public String phone;
     public boolean isActive;
 
-    public OrganizationView() {
+    public OrganizationToSave() {
     }
 
-    public OrganizationView(Long id, String name, String fullName, String inn, String kpp, String address, String phone, boolean isActive) {
-        this.id = id;
+    public OrganizationToSave(String name, String fullName, String inn, String kpp, String address, String phone, boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
@@ -33,8 +26,7 @@ public class OrganizationView {
     @Override
     public String toString() {
         return "{" +
-                "id:" + id +
-                ", name:'" + name + '\'' +
+                "name:'" + name + '\'' +
                 ", fullName:'" + fullName + '\'' +
                 ", inn:'" + inn + '\'' +
                 ", kpp:'" + kpp + '\'' +

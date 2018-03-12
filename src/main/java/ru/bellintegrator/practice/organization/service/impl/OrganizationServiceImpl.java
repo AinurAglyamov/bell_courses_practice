@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.organization.service.OrganizationService;
+import ru.bellintegrator.practice.organization.view.OrganizationFilter;
+import ru.bellintegrator.practice.organization.view.OrganizationToSave;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public void save(OrganizationView view) {
+    public void save(OrganizationToSave view) {
         log.info(view.toString());
 
         Organization organization = new Organization();
@@ -110,7 +112,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public List<OrganizationView> list(OrganizationView view) {
+    public List<OrganizationView> list(OrganizationFilter view) {
         log.info(view.toString());
 
         Organization organization = new Organization();
