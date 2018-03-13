@@ -4,6 +4,7 @@ import ru.bellintegrator.practice.organization.model.Organization;
 import ru.bellintegrator.practice.employee.model.Employee;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -96,6 +97,9 @@ public class Office {
     }
 
     public List<Employee> getEmployees() {
+        if(employees == null) {
+            employees = new ArrayList<>();
+        }
         return employees;
     }
 

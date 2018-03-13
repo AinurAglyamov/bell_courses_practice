@@ -41,11 +41,11 @@ public class Employee {
     @JoinColumn(name = "office_id")
     private Office office;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "doc_type_id")
     private DocumentType documentType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "country_id")
     private Country country;
 
@@ -140,6 +140,9 @@ public class Employee {
     }
 
     public Office getOffice() {
+        if(office == null) {
+            office = new Office();
+        }
         return office;
     }
 
@@ -148,6 +151,9 @@ public class Employee {
     }
 
     public DocumentType getDocumentType() {
+        if(documentType == null) {
+            documentType = new DocumentType();
+        }
         return documentType;
     }
 
@@ -156,6 +162,9 @@ public class Employee {
     }
 
     public Country getCountry() {
+        if(country == null) {
+            country = new Country();
+        }
         return country;
     }
 

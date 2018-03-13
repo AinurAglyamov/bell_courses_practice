@@ -15,7 +15,7 @@ public interface OfficeDao {
      * get Office by id
      *
      * @param id
-     * @return
+     * @return Office
      */
     Office loadById(Long id);
 

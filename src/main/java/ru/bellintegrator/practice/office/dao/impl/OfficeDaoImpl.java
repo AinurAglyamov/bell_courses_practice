@@ -48,7 +48,6 @@ public class OfficeDaoImpl implements OfficeDao {
     public void update(Office office) {
         Office officeToUpdate = loadById(office.getId());
 
-        officeToUpdate.setId(office.getId());
         officeToUpdate.setName(office.getName());
         officeToUpdate.setAddress(office.getAddress());
         officeToUpdate.setPhone(office.getPhone());
