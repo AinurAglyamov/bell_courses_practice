@@ -4,14 +4,17 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.employee.controller.EmployeeController;
 import ru.bellintegrator.practice.employee.service.EmployeeService;
+import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping(value = "/api/employee", produces = APPLICATION_JSON_VALUE)
@@ -33,5 +36,12 @@ public class EmployeeControllerImpl implements EmployeeController {
     @RequestMapping(value = "/{id}", method = {GET})
     public EmployeeView employeeById(@PathVariable Long id) {
         return employeeService.loadById(id);
+    }
+
+    @Override
+    @ApiOperation(value = "save Employee", httpMethod = "POST")
+    @RequestMapping(value = "/save", method = {POST})
+    public void saveEmployee(@RequestBody EmployeeToSave employee) {
+        employeeService.save(employee);
     }
 }

@@ -1,6 +1,8 @@
 package ru.bellintegrator.practice.employee.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
 
 public interface EmployeeController {
@@ -14,5 +16,11 @@ public interface EmployeeController {
      */
     EmployeeView employeeById(@PathVariable Long id);
 
-
+    /**
+     *
+     * save Employee
+     *
+     * @param employee
+     */
+    void saveEmployee(@RequestBody EmployeeToSave employee);
 }
