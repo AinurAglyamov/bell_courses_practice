@@ -7,13 +7,13 @@ public class EmployeeFilter {
     public String secondName;
     public String middleName;
     public String position;
-    public String docCode;
+    public Integer docCode;
     public Integer citizenshipCode;
 
     public EmployeeFilter() {
     }
 
-    public EmployeeFilter(Long officeId, String firstName, String secondName, String middleName, String position, String docCode, Integer citizenshipCode) {
+    public EmployeeFilter(Long officeId, String firstName, String secondName, String middleName, String position, Integer docCode, Integer citizenshipCode) {
         this.officeId = officeId;
         this.firstName = firstName;
         this.secondName = secondName;

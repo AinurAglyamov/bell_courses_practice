@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.employee.controller.EmployeeController;
 import ru.bellintegrator.practice.employee.service.EmployeeService;
+import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -43,5 +46,26 @@ public class EmployeeControllerImpl implements EmployeeController {
     @RequestMapping(value = "/save", method = {POST})
     public void saveEmployee(@RequestBody EmployeeToSave employee) {
         employeeService.save(employee);
+    }
+
+    @Override
+    @ApiOperation(value = "update Employee", httpMethod = "POST")
+    @RequestMapping(value = "/update", method = {POST})
+    public void updateEmployee(@RequestBody EmployeeView employee) {
+        employeeService.update(employee);
+    }
+
+    @Override
+    @ApiOperation(value = "delete Employee", httpMethod = "POST")
+    @RequestMapping(value = "/delete", method = {POST})
+    public void deleteEmployee(@RequestBody Long id) {
+        employeeService.delete(id);
+    }
+
+    @Override
+    @ApiOperation(value = "get Employee list", httpMethod = "POST")
+    @RequestMapping(value = "/list", method = {POST})
+    public List<EmployeeView> list(@RequestBody EmployeeFilter employee) {
+        return employeeService.list(employee);
     }
 }

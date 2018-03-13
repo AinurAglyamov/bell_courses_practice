@@ -18,12 +18,12 @@ public class EmployeeView {
     public Date docDate;
     public String citizenshipName;
     public Integer citizenshipCode;
-    public boolean isIdentified;
+    public Boolean isIdentified;
 
     public EmployeeView() {
     }
 
-    public EmployeeView(Long id, String firstName, String secondName, String middleName, String position, String phone, String docName, String docNumber, Date docDate, String citizenshipName, Integer citizenshipCode, boolean isIdentified) {
+    public EmployeeView(Long id, String firstName, String secondName, String middleName, String position, String phone, String docName, String docNumber, Date docDate, String citizenshipName, Integer citizenshipCode, Boolean isIdentified) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
