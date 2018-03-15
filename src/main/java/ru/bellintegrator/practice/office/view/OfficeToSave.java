@@ -5,12 +5,12 @@ public class OfficeToSave {
     public String name;
     public String address;
     public String phone;
-    public boolean isActive;
+    public Boolean isActive;
 
     public OfficeToSave() {
     }
 
-    public OfficeToSave(String name, String address, String phone, boolean isActive) {
+    public OfficeToSave(String name, String address, String phone, Boolean isActive) {
         this.name = name;
         this.address = address;
         this.phone = phone;

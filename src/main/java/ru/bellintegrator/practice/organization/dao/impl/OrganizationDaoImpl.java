@@ -76,9 +76,9 @@ public class OrganizationDaoImpl implements OrganizationDao {
      */
     @Override
     public List<Organization> list(Organization organization) {
-        String name = organization.getName();
+        String namePattern = "%" + organization.getName() + "%";
         String inn = organization.getInn();
-        boolean isActive = organization.isActive();
+        Boolean isActive = organization.isActive();
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Organization> organizationCriteriaQuery = builder.createQuery(Organization.class);
@@ -88,8 +88,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
 
         Predicate criteria = builder.conjunction();
 
-        if(!Strings.isNullOrEmpty(name)) {
-            Predicate p = builder.equal(organizationRoot.get("name"), name);
+        if(!Strings.isNullOrEmpty(namePattern)) {
+            Predicate p = builder.like(organizationRoot.get("name"), namePattern);
             criteria = builder.and(criteria, p);
         }
 
@@ -98,8 +98,10 @@ public class OrganizationDaoImpl implements OrganizationDao {
             criteria = builder.and(criteria, p);
         }
 
-        Predicate p = builder.equal(organizationRoot.get("isActive"), isActive);
-        criteria = builder.and(criteria, p);
+        if(isActive != null) {
+            Predicate p = builder.equal(organizationRoot.get("isActive"), isActive);
+            criteria = builder.and(criteria, p);
+        }
 
         organizationCriteriaQuery.where(criteria);
         List<Organization> organizations = em.createQuery(organizationCriteriaQuery).getResultList();

@@ -15,12 +15,12 @@ public class EmployeeToSave {
     public Date docDate;
     public String citizenshipName;
     public Integer citizenshipCode;
-    public boolean isIdentified;
+    public Boolean isIdentified;
 
     public EmployeeToSave() {
     }
 
-    public EmployeeToSave(String firstName, String secondName, String middleName, String position, String phone, Integer docCode, String docName, String docNumber, Date docDate, String citizenshipName, Integer citizenshipCode, boolean isIdentified) {
+    public EmployeeToSave(String firstName, String secondName, String middleName, String position, String phone, Integer docCode, String docName, String docNumber, Date docDate, String citizenshipName, Integer citizenshipCode, Boolean isIdentified) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;

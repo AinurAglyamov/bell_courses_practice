@@ -3,7 +3,7 @@ package ru.bellintegrator.practice.office.view;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName(value = "data")
+//@JsonRootName(value = "data")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OfficeView {
 
@@ -11,12 +11,12 @@ public class OfficeView {
     public String name;
     public String address;
     public String phone;
-    public boolean isActive;
+    public Boolean isActive;
 
     public OfficeView() {
     }
 
-    public OfficeView(Long id, String name, String address, String phone, boolean isActive) {
+    public OfficeView(Long id, String name, String address, String phone, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.address = address;

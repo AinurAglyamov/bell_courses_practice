@@ -29,7 +29,7 @@ public class Employee {
     private String phone;
 
     @Column(nullable = false)
-    private boolean isIdentified;
+    private Boolean isIdentified;
 
     private String docNumber;
 
@@ -56,7 +56,7 @@ public class Employee {
     }
 
 
-    public Employee(String firstName, String secondName, String middleName, String position, String phone, boolean isIdentified, String docNumber, Date docDate) {
+    public Employee(String firstName, String secondName, String middleName, String position, String phone, Boolean isIdentified, String docNumber, Date docDate) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;

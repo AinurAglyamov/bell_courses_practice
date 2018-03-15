@@ -74,7 +74,7 @@ public class OfficeDaoImpl implements OfficeDao {
         Long orgId = office.getOrganization().getId();
         String name = office.getName();
         String phone = office.getPhone();
-        boolean isActive = office.isActive();
+        Boolean isActive = office.isActive();
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Office> officeCriteriaQuery = builder.createQuery(Office.class);
@@ -99,8 +99,10 @@ public class OfficeDaoImpl implements OfficeDao {
             criteria = builder.and(criteria, p);
         }
 
-        Predicate p = builder.equal(officeRoot.get("isActive"), isActive);
-        criteria = builder.and(criteria, p);
+        if(isActive != null) {
+            Predicate p = builder.equal(officeRoot.get("isActive"), isActive);
+            criteria = builder.and(criteria, p);
+        }
 
         officeCriteriaQuery.where(criteria);
         List<Office> offices = em.createQuery(officeCriteriaQuery).getResultList();
