@@ -1,9 +1,6 @@
 package ru.bellintegrator.practice.organization.controller.impl;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.organization.controller.OrganizationController;
@@ -32,28 +29,28 @@ public class OrganizationControllerImpl implements OrganizationController{
 
     @Override
     @ApiOperation(value = "get Organization by id", httpMethod = "GET")
-    @RequestMapping(value = "/{id}", method = {GET})
+    @GetMapping("/{id}")
     public OrganizationView organizationById(@PathVariable Long id) {
         return organizationService.loadById(id);
     }
 
     @Override
     @ApiOperation(value = "add Organization", httpMethod = "POST")
-    @RequestMapping(value = "/save", method = {POST})
+    @PostMapping("/save")
     public void saveOrganization(@RequestBody OrganizationToSave organization) {
         organizationService.save(organization);
     }
 
     @Override
     @ApiOperation(value = "update Organization", httpMethod = "POST")
-    @RequestMapping(value = "/update", method = {POST})
+    @PostMapping("/update")
     public void updateOrganization(@RequestBody OrganizationView organization) {
         organizationService.update(organization);
     }
 
     @Override
     @ApiOperation(value = "delete Organization", httpMethod = "POST")
-    @RequestMapping(value = "/delete", method = {POST})
+    @PostMapping("/delete")
     public void deleteOrganization(@RequestBody Long id) {
         organizationService.delete(id);
     }
@@ -61,7 +58,7 @@ public class OrganizationControllerImpl implements OrganizationController{
 
     @Override
     @ApiOperation(value = "get Organization list", httpMethod = "POST")
-    @RequestMapping(value = "/list", method = {POST})
+    @PostMapping("/list")
     public List<OrganizationView> list(@RequestBody OrganizationFilter view) {
         return organizationService.list(view);
     }

@@ -11,12 +11,12 @@ public class OfficeView {
     public String name;
     public String address;
     public String phone;
-    public boolean isActive;
+    public Boolean isActive;
 
     public OfficeView() {
     }
 
-    public OfficeView(Long id, String name, String address, String phone, boolean isActive) {
+    public OfficeView(Long id, String name, String address, String phone, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.address = address;

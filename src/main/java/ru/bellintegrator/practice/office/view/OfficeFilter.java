@@ -5,12 +5,12 @@ public class OfficeFilter {
     public Long orgId;
     public String name;
     public String phone;
-    public boolean isActive;
+    public Boolean isActive;
 
     public OfficeFilter() {
     }
 
-    public OfficeFilter(Long orgId, String name, String phone, boolean isActive) {
+    public OfficeFilter(Long orgId, String name, String phone, Boolean isActive) {
         this.orgId = orgId;
         this.name = name;
         this.phone = phone;

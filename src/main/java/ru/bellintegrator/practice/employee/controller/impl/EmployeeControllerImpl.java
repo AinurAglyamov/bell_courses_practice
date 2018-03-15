@@ -1,12 +1,8 @@
 package ru.bellintegrator.practice.employee.controller.impl;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.employee.controller.EmployeeController;
 import ru.bellintegrator.practice.employee.service.EmployeeService;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
@@ -36,35 +32,35 @@ public class EmployeeControllerImpl implements EmployeeController {
      */
     @Override
     @ApiOperation(value = "get Employee by id", httpMethod = "GET")
-    @RequestMapping(value = "/{id}", method = {GET})
+    @GetMapping("/{id}")
     public EmployeeView employeeById(@PathVariable Long id) {
         return employeeService.loadById(id);
     }
 
     @Override
     @ApiOperation(value = "save Employee", httpMethod = "POST")
-    @RequestMapping(value = "/save", method = {POST})
+    @PostMapping("/save")
     public void saveEmployee(@RequestBody EmployeeToSave employee) {
         employeeService.save(employee);
     }
 
     @Override
     @ApiOperation(value = "update Employee", httpMethod = "POST")
-    @RequestMapping(value = "/update", method = {POST})
+    @PostMapping("/update")
     public void updateEmployee(@RequestBody EmployeeView employee) {
         employeeService.update(employee);
     }
 
     @Override
     @ApiOperation(value = "delete Employee", httpMethod = "POST")
-    @RequestMapping(value = "/delete", method = {POST})
+    @PostMapping("/delete")
     public void deleteEmployee(@RequestBody Long id) {
         employeeService.delete(id);
     }
 
     @Override
     @ApiOperation(value = "get Employee list", httpMethod = "POST")
-    @RequestMapping(value = "/list", method = {POST})
+    @PostMapping("/list")
     public List<EmployeeView> list(@RequestBody EmployeeFilter employee) {
         return employeeService.list(employee);
     }

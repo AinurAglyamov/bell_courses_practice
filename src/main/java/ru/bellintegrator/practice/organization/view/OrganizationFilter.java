@@ -4,12 +4,12 @@ public class OrganizationFilter {
 
     public String name;
     public String inn;
-    public boolean isActive;
+    public Boolean isActive;
 
     public OrganizationFilter() {
     }
 
-    public OrganizationFilter(String name, String inn, boolean isActive) {
+    public OrganizationFilter(String name, String inn, Boolean isActive) {
         this.name = name;
         this.inn = inn;
         this.isActive = isActive;

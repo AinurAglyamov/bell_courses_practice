@@ -31,7 +31,7 @@ public class Organization {
     private String phone;
 
     @Column(nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Office> offices;
@@ -42,13 +42,13 @@ public class Organization {
     public Organization() {
     }
 
-    public Organization(String fullName, String inn, String kpp, String address, String phone) {
+    public Organization(String fullName, String inn, String kpp, String address, String phone, Boolean isActive) {
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
         this.address = address;
         this.phone = phone;
-        this.isActive = true;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -107,11 +107,11 @@ public class Organization {
         this.phone = phone;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

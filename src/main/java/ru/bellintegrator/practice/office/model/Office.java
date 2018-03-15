@@ -23,7 +23,7 @@ public class Office {
     private String phone;
 
     @Column(nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id")
@@ -38,11 +38,11 @@ public class Office {
     public Office() {
     }
 
-    public Office(String name, String address, String phone) {
+    public Office(String name, String address, String phone, Boolean isActive) {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        this.isActive = true;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -77,11 +77,11 @@ public class Office {
         this.phone = phone;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 
