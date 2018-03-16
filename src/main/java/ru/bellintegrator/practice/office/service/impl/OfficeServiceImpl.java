@@ -11,6 +11,7 @@ import ru.bellintegrator.practice.office.service.OfficeService;
 import ru.bellintegrator.practice.office.view.OfficeFilter;
 import ru.bellintegrator.practice.office.view.OfficeToSave;
 import ru.bellintegrator.practice.office.view.OfficeView;
+import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
 
 import java.util.List;
@@ -23,10 +24,16 @@ public class OfficeServiceImpl implements OfficeService {
     private final Logger log = LoggerFactory.getLogger(OfficeServiceImpl.class);
 
     private OfficeDao dao;
+    private OrganizationDao orgDao;
 
     @Autowired
     public void setDao(OfficeDao dao) {
         this.dao = dao;
+    }
+
+    @Autowired
+    public void setOrgDao(OrganizationDao orgDao) {
+        this.orgDao = orgDao;
     }
 
     /**
@@ -67,6 +74,9 @@ public class OfficeServiceImpl implements OfficeService {
         office.setPhone(view.phone);
         office.setActive(view.isActive);
 
+        orgDao.loadById(view.orgId).addOffice(office);
+
+
         dao.save(office);
     }
 
@@ -85,6 +95,7 @@ public class OfficeServiceImpl implements OfficeService {
         office.setAddress(view.address);
         office.setPhone(view.phone);
         office.setActive(view.isActive);
+
 
         dao.update(office);
     }

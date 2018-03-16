@@ -16,24 +16,11 @@ public class EmployeeToSave {
     public String citizenshipName;
     public Integer citizenshipCode;
     public Boolean isIdentified;
+    public Long officeId;
 
     public EmployeeToSave() {
     }
 
-    public EmployeeToSave(String firstName, String secondName, String middleName, String position, String phone, Integer docCode, String docName, String docNumber, Date docDate, String citizenshipName, Integer citizenshipCode, Boolean isIdentified) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.middleName = middleName;
-        this.position = position;
-        this.phone = phone;
-        this.docCode = docCode;
-        this.docName = docName;
-        this.docNumber = docNumber;
-        this.docDate = docDate;
-        this.citizenshipName = citizenshipName;
-        this.citizenshipCode = citizenshipCode;
-        this.isIdentified = isIdentified;
-    }
 
     @Override
     public String toString() {
@@ -43,13 +30,14 @@ public class EmployeeToSave {
                 ", middleName:'" + middleName + '\'' +
                 ", position:'" + position + '\'' +
                 ", phone:'" + phone + '\'' +
-                ", docCode:'" + docCode + '\'' +
+                ", docCode:" + docCode +
                 ", docName:'" + docName + '\'' +
                 ", docNumber:'" + docNumber + '\'' +
                 ", docDate:" + docDate +
                 ", citizenshipName:'" + citizenshipName + '\'' +
                 ", citizenshipCode:" + citizenshipCode +
                 ", isIdentified:" + isIdentified +
+                ", officeId:" + officeId +
                 '}';
     }
 }

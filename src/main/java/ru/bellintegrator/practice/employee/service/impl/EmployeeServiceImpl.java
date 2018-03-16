@@ -11,6 +11,7 @@ import ru.bellintegrator.practice.employee.service.EmployeeService;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
+import ru.bellintegrator.practice.office.dao.OfficeDao;
 
 import java.util.List;
 import java.util.function.Function;
@@ -21,10 +22,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     private final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
     private EmployeeDao dao;
+    private OfficeDao officeDao;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDao dao) {
+    public EmployeeServiceImpl(EmployeeDao dao, OfficeDao officeDao) {
         this.dao = dao;
+        this.officeDao = officeDao;
     }
 
     /**
@@ -77,6 +80,8 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.getCountry().setName(view.citizenshipName);
         employee.getCountry().setCode(view.citizenshipCode);
         employee.setIdentified(view.isIdentified);
+
+        officeDao.loadById(view.officeId).addEmployee(employee);
 
         dao.save(employee);
     }

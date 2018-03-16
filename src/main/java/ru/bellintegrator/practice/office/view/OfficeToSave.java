@@ -6,15 +6,18 @@ public class OfficeToSave {
     public String address;
     public String phone;
     public Boolean isActive;
+    public Long orgId;
 
     public OfficeToSave() {
     }
 
-    public OfficeToSave(String name, String address, String phone, Boolean isActive) {
+
+    public OfficeToSave(String name, String address, String phone, Boolean isActive, Long orgId) {
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
+        this.orgId = orgId;
     }
 
     @Override
@@ -24,6 +27,7 @@ public class OfficeToSave {
                 ", address:'" + address + '\'' +
                 ", phone:'" + phone + '\'' +
                 ", isActive:" + isActive +
+                ", orgId:" + orgId +
                 '}';
     }
 }
