@@ -35,6 +35,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationView loadById(Long id) {
         log.info("organization id = " + id);
 
+        if(id == null) {
+            throw new IllegalArgumentException("id is null");
+        }/**/
+
         Organization organization = dao.loadById(id);
 
         OrganizationView view = new OrganizationView();
