@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.organization.service.impl;
 
+import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class OrganizationServiceImpl implements OrganizationService {
         }/**/
 
         Organization organization = dao.loadById(id);
+
+        if(organization == null) {
+            throw new NullPointerException("Организация с id = " + id + " не существует");
+        }
 
         OrganizationView view = new OrganizationView();
 

@@ -31,6 +31,7 @@ public class OrganizationControllerImpl implements OrganizationController{
     @ApiOperation(value = "get Organization by id", httpMethod = "GET")
     @GetMapping("/{id}")
     public OrganizationView organizationById(@PathVariable Long id) {
+
         return organizationService.loadById(id);
     }
 
