@@ -8,12 +8,12 @@ public class OrganizationToSave {
     public String kpp;
     public String address;
     public String phone;
-    public boolean isActive;
+    public Boolean isActive;
 
     public OrganizationToSave() {
     }
 
-    public OrganizationToSave(String name, String fullName, String inn, String kpp, String address, String phone, boolean isActive) {
+    public OrganizationToSave(String name, String fullName, String inn, String kpp, String address, String phone, Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;

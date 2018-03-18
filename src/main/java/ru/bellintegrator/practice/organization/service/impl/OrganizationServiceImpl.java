@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.organization.service.impl;
 
+import com.google.common.base.Strings;
 import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,15 +72,47 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void save(OrganizationToSave view) {
         log.info(view.toString());
 
+        String name = view.name;
+        String fullName = view.fullName;
+        String inn = view.inn;
+        String kpp = view.kpp;
+        String address = view.address;
+        String phone = view.phone;
+        Boolean isActive = view.isActive;
+
+        if(Strings.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("orgName is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(fullName)) {
+            throw new IllegalArgumentException("orgFullName is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(inn)) {
+            throw new IllegalArgumentException("orgInn is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(kpp)) {
+            throw new IllegalArgumentException("orgKpp is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(phone)) {
+            throw new IllegalArgumentException("orgPhone is null or empty");
+        }
+
+        if(isActive == null) {
+            throw new IllegalArgumentException("orgIsActive is null");
+        }
+
         Organization organization = new Organization();
 
-        organization.setName(view.name);
-        organization.setFullName(view.fullName);
-        organization.setInn(view.inn);
-        organization.setKpp(view.kpp);
-        organization.setAddress(view.address);
-        organization.setPhone(view.phone);
-        organization.setActive(view.isActive);
+        organization.setName(name);
+        organization.setFullName(fullName);
+        organization.setInn(inn);
+        organization.setKpp(kpp);
+        organization.setAddress(address);
+        organization.setPhone(phone);
+        organization.setActive(isActive);
 
         dao.save(organization);
 

@@ -44,6 +44,8 @@ public class OfficeServiceImpl implements OfficeService {
     public OfficeView loadById(Long id) {
         log.info("id = " + id);
 
+
+
         Office office = dao.loadById(id);
 
         OfficeView view = new OfficeView();
