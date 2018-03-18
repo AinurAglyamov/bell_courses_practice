@@ -39,7 +39,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         if(id == null) {
             throw new IllegalArgumentException("id is null");
-        }/**/
+        }
 
         Organization organization = dao.loadById(id);
 
@@ -72,47 +72,17 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void save(OrganizationToSave view) {
         log.info(view.toString());
 
-        String name = view.name;
-        String fullName = view.fullName;
-        String inn = view.inn;
-        String kpp = view.kpp;
-        String address = view.address;
-        String phone = view.phone;
-        Boolean isActive = view.isActive;
-
-        if(Strings.isNullOrEmpty(name)) {
-            throw new IllegalArgumentException("orgName is null or empty");
-        }
-
-        if(Strings.isNullOrEmpty(fullName)) {
-            throw new IllegalArgumentException("orgFullName is null or empty");
-        }
-
-        if(Strings.isNullOrEmpty(inn)) {
-            throw new IllegalArgumentException("orgInn is null or empty");
-        }
-
-        if(Strings.isNullOrEmpty(kpp)) {
-            throw new IllegalArgumentException("orgKpp is null or empty");
-        }
-
-        if(Strings.isNullOrEmpty(phone)) {
-            throw new IllegalArgumentException("orgPhone is null or empty");
-        }
-
-        if(isActive == null) {
-            throw new IllegalArgumentException("orgIsActive is null");
-        }
-
         Organization organization = new Organization();
 
-        organization.setName(name);
-        organization.setFullName(fullName);
-        organization.setInn(inn);
-        organization.setKpp(kpp);
-        organization.setAddress(address);
-        organization.setPhone(phone);
-        organization.setActive(isActive);
+        organization.setName(view.name);
+        organization.setFullName(view.fullName);
+        organization.setInn(view.inn);
+        organization.setKpp(view.kpp);
+        organization.setAddress(view.address);
+        organization.setPhone(view.phone);
+        organization.setActive(view.isActive);
+
+        checkOrganization(organization);
 
         dao.save(organization);
 
@@ -126,6 +96,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void update(OrganizationView view) {
         log.info(view.toString());
 
+        if(view.id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+
         Organization organization = new Organization();
 
         organization.setId(view.id);
@@ -136,6 +110,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setAddress(view.address);
         organization.setPhone(view.phone);
         organization.setActive(view.isActive);
+
+        checkOrganization(organization);
 
         dao.update(organization);
     }
@@ -177,5 +153,31 @@ public class OrganizationServiceImpl implements OrganizationService {
         };
 
         return organizations.stream().map(mapOrganization).collect(Collectors.toList());
+    }
+
+    private void checkOrganization(Organization organization){
+        if(Strings.isNullOrEmpty(organization.getName())) {
+            throw new IllegalArgumentException("orgName is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(organization.getFullName())) {
+            throw new IllegalArgumentException("orgFullName is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(organization.getInn())) {
+            throw new IllegalArgumentException("orgInn is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(organization.getKpp())) {
+            throw new IllegalArgumentException("orgKpp is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(organization.getPhone())) {
+            throw new IllegalArgumentException("orgPhone is null or empty");
+        }
+
+        if(organization.isActive() == null) {
+            throw new IllegalArgumentException("orgIsActive is null");
+        }
     }
 }
