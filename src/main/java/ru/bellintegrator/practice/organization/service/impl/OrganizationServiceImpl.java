@@ -122,6 +122,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void delete(Long id) {
+        if(id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
         dao.delete(id);
     }
 
@@ -132,6 +135,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional
     public List<OrganizationView> list(OrganizationFilter view) {
         log.info(view.toString());
+
+        if(view.name == null) {
+            throw new IllegalArgumentException("orgName is null");
+        }
 
         Organization organization = new Organization();
 

@@ -21,12 +21,12 @@ public class ExceptionHandlerController {
         return view;
     }
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    /*@ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseView MethodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException e) {
         log.error(null, e);
 
         ResponseView view = new ResponseView();
         view.error = "Передано не число";
         return view;
-    }/**/
+    }*/
 }
