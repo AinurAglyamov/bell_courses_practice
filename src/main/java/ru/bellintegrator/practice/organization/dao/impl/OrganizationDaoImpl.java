@@ -32,7 +32,16 @@ public class OrganizationDaoImpl implements OrganizationDao {
      */
     @Override
     public Organization loadById(Long id) {
-        return em.find(Organization.class, id);
+        if(id == null) {
+            throw new IllegalArgumentException("orgId is null");
+        }
+        Organization organization = em.find(Organization.class, id);
+
+        if(organization == null) {
+            throw new NullPointerException("Организация с id = " + id + " не существует");
+        }
+
+        return organization;
     }
 
     /**

@@ -30,7 +30,17 @@ public class OfficeDaoImpl implements OfficeDao {
      */
     @Override
     public Office loadById(Long id) {
-        return em.find(Office.class, id);
+        if(id == null) {
+            throw new IllegalArgumentException("officeId is null");
+        }
+
+        Office office = em.find(Office.class, id);
+
+        if(office == null) {
+            throw new NullPointerException("Офис с id = " + id + " не существует");
+        }
+
+        return office;
     }
 
     /**

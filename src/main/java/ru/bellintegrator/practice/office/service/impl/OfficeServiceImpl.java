@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.office.service.impl;
 
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,12 @@ public class OfficeServiceImpl implements OfficeService {
     public OfficeView loadById(Long id) {
         log.info("id = " + id);
 
-
+        if(id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
 
         Office office = dao.loadById(id);
+
 
         OfficeView view = new OfficeView();
 
@@ -69,6 +73,10 @@ public class OfficeServiceImpl implements OfficeService {
     public void save(OfficeToSave view) {
         log.info("Office to save:" + view.toString());
 
+        if(view.orgId == null) {
+            throw new IllegalArgumentException("orgId is null");
+        }/**/
+
         Office office = new Office();
 
         office.setName(view.name);
@@ -78,6 +86,7 @@ public class OfficeServiceImpl implements OfficeService {
 
         orgDao.loadById(view.orgId).addOffice(office);
 
+        checkOffice(office);
 
         dao.save(office);
     }
@@ -90,6 +99,10 @@ public class OfficeServiceImpl implements OfficeService {
     public void update(OfficeView view) {
         log.info("updated Office" + view.toString());
 
+        if(view.id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+
         Office office = new Office();
 
         office.setId(view.id);
@@ -98,6 +111,7 @@ public class OfficeServiceImpl implements OfficeService {
         office.setPhone(view.phone);
         office.setActive(view.isActive);
 
+        checkOffice(office);
 
         dao.update(office);
     }
@@ -108,6 +122,9 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public void delete(Long id) {
+        if(id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
         dao.delete(id);
     }
 
@@ -118,6 +135,12 @@ public class OfficeServiceImpl implements OfficeService {
     @Transactional(readOnly = true)
     public List<OfficeView> list(OfficeFilter view) {
         log.info("Filter: " + view.toString());
+
+        if(view.orgId == null) {
+            throw new IllegalArgumentException("orgId is null");
+        }
+
+        orgDao.loadById(view.orgId);
 
         Office office = new Office();
 
@@ -140,5 +163,20 @@ public class OfficeServiceImpl implements OfficeService {
         };
 
         return offices.stream().map(mapOffice).collect(Collectors.toList());
+    }
+
+    private void checkOffice(Office office){
+        if(Strings.isNullOrEmpty(office.getName())) {
+            throw new IllegalArgumentException("officeName is null or empty");
+        }
+
+        if(Strings.isNullOrEmpty(office.getPhone())) {
+            throw new IllegalArgumentException("officePhone is null or empty");
+        }
+
+        if(office.isActive() == null) {
+            throw new IllegalArgumentException("officeIsActive is null");
+        }
+
     }
 }

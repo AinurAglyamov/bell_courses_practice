@@ -43,10 +43,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         Organization organization = dao.loadById(id);
 
-        if(organization == null) {
-            throw new NullPointerException("Организация с id = " + id + " не существует");
-        }
-
         OrganizationView view = new OrganizationView();
 
         view.id = organization.getId();

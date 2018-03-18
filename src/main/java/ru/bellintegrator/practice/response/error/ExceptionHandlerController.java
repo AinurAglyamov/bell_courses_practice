@@ -18,6 +18,9 @@ public class ExceptionHandlerController {
 
         ResponseView view = new ResponseView();
         view.error = e.getMessage();
+
+        log.info("Сообщеение: " + view.error);
+
         return view;
     }
 
