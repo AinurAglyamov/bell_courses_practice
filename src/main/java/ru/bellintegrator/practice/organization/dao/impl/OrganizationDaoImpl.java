@@ -1,11 +1,9 @@
 package ru.bellintegrator.practice.organization.dao.impl;
 
 import com.google.common.base.Strings;
-import com.google.common.primitives.Booleans;
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.organization.dao.OrganizationDao;
+import ru.bellintegrator.practice.organization.error.OrganizationNotFoundException;
 import ru.bellintegrator.practice.organization.model.Organization;
 
 import javax.persistence.EntityManager;
@@ -38,9 +36,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
         Organization organization = em.find(Organization.class, id);
 
         if(organization == null) {
-            throw new NullPointerException("Организация с id = " + id + " не существует");
+            throw new OrganizationNotFoundException(id);
         }
-
         return organization;
     }
 

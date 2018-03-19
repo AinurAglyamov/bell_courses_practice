@@ -3,7 +3,9 @@ package ru.bellintegrator.practice.office.dao.impl;
 import com.google.common.base.Strings;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
+import ru.bellintegrator.practice.office.error.OfficeNotFoundException;
 import ru.bellintegrator.practice.office.model.Office;
+import ru.bellintegrator.practice.organization.error.OrganizationNotFoundException;
 import ru.bellintegrator.practice.organization.model.Organization;
 
 import javax.persistence.EntityManager;
@@ -37,7 +39,7 @@ public class OfficeDaoImpl implements OfficeDao {
         Office office = em.find(Office.class, id);
 
         if(office == null) {
-            throw new NullPointerException("Офис с id = " + id + " не существует");
+            throw new OfficeNotFoundException(id);
         }
 
         return office;

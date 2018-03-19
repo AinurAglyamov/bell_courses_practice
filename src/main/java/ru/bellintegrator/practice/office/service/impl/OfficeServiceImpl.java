@@ -73,9 +73,9 @@ public class OfficeServiceImpl implements OfficeService {
     public void save(OfficeToSave view) {
         log.info("Office to save:" + view.toString());
 
-        if(view.orgId == null) {
+        /*if(view.orgId == null) {
             throw new IllegalArgumentException("orgId is null");
-        }/**/
+        }*/
 
         Office office = new Office();
 
