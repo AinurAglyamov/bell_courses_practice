@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
+import ru.bellintegrator.practice.office.error.OfficeNotFoundException;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +29,7 @@ public class OfficeServiceTest {
 
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = OfficeNotFoundException.class)
     public void testExceptionWhenOfficeIsNotExists() {
         service.loadById(-1000l);
     }

@@ -157,27 +157,50 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private void checkOrganization(Organization organization){
         if(Strings.isNullOrEmpty(organization.getName())) {
-            throw new IllegalArgumentException("orgName is null or empty");
+            throw new IllegalArgumentException("orgName is wrong");
         }
 
         if(Strings.isNullOrEmpty(organization.getFullName())) {
-            throw new IllegalArgumentException("orgFullName is null or empty");
+            throw new IllegalArgumentException("orgFullName is wrong");
         }
 
-        if(Strings.isNullOrEmpty(organization.getInn())) {
-            throw new IllegalArgumentException("orgInn is null or empty");
+        if(!checkInn(organization.getInn())) {
+            throw new IllegalArgumentException("orgInn is wrong");
         }
 
-        if(Strings.isNullOrEmpty(organization.getKpp())) {
-            throw new IllegalArgumentException("orgKpp is null or empty");
+        if(!checkKpp(organization.getKpp())) {
+            throw new IllegalArgumentException("orgKpp is wrong");
         }
 
-        if(Strings.isNullOrEmpty(organization.getPhone())) {
-            throw new IllegalArgumentException("orgPhone is null or empty");
+        if(!checkPhone(organization.getPhone())) {
+            throw new IllegalArgumentException("orgPhone is wrong");
         }
 
         if(organization.isActive() == null) {
-            throw new IllegalArgumentException("orgIsActive is null");
+            throw new IllegalArgumentException("orgIsActive is wrong");
         }
     }
+
+    private boolean checkInn(String inn) {
+        if(inn == null) {
+            return false;
+        }
+        return inn.matches("\\d{10}");
+    }
+
+    private boolean checkKpp(String kpp) {
+        if(kpp == null) {
+            return false;
+        }
+        return kpp.matches("\\d{9}");
+    }
+
+    private boolean checkPhone(String phone) {
+        if(phone == null) {
+            return false;
+        }
+        return phone.matches("^\\d[\\d\\(\\)\\ -]{8,20}\\d$");
+    }
+
+
 }
