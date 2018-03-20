@@ -181,11 +181,13 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     private void checkFilterParams(OfficeFilter filter) {
-        if (filter.orgId == null) {
+        /*if (filter.orgId == null) {
             throw new IllegalArgumentException("orgId is null");
-        }
+        }*/
 
-        orgDao.loadById(filter.orgId);
+        if(filter.orgId != null) {
+            orgDao.loadById(filter.orgId);
+        }
 
         if((filter.phone != null) && (!checkPhone(filter.phone))) {
             throw new IllegalArgumentException("officePhone is wrong");

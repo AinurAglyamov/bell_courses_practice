@@ -188,9 +188,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     private void checkFilterParams(OrganizationFilter filter) {
-        if (filter.name == null) {
+        /*if (filter.name == null) {
             throw new IllegalArgumentException("orgName is null");
-        }
+        }*/
 
         if ((filter.inn != null) && (!checkInn(filter.inn))) {
             throw new IllegalArgumentException("orgInn is wrong");

@@ -82,7 +82,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
      */
     @Override
     public List<Organization> list(Organization organization) {
-        String namePattern = "%" + organization.getName() + "%";
+
+        String name = organization.getName();
         String inn = organization.getInn();
         Boolean isActive = organization.isActive();
 
@@ -94,7 +95,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
 
         Predicate criteria = builder.conjunction();
 
-        if(!Strings.isNullOrEmpty(namePattern)) {
+        if(!Strings.isNullOrEmpty(name)) {
+            String namePattern = "%" + organization.getName() + "%";
             Predicate p = builder.like(organizationRoot.get("name"), namePattern);
             criteria = builder.and(criteria, p);
         }

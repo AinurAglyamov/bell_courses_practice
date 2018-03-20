@@ -218,11 +218,10 @@ public class EmployeeServiceImpl implements EmployeeService{
         String secondName = filter.secondName;
         String middleName = filter.middleName;
 
-        if(officeId == null) {
-            throw new IllegalArgumentException("officeId is null");
-        }
-
-        officeDao.loadById(officeId);
+        if(officeId != null) {
+            officeDao.loadById(officeId);
+            //throw new IllegalArgumentException("officeId is null");
+        }/**/
 
         if((firstName != null) && (!checkName(firstName))) {
             throw new IllegalArgumentException("firstName is wrong");
