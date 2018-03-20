@@ -37,7 +37,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationView loadById(Long id) {
         log.info("organization id = " + id);
 
-        if(id == null) {
+        if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
 
@@ -92,7 +92,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void update(OrganizationView view) {
         log.info(view.toString());
 
-        if(view.id == null) {
+        if (view.id == null) {
             throw new IllegalArgumentException("id is null");
         }/**/
 
@@ -129,9 +129,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public List<OrganizationView> list(OrganizationFilter view) {
         log.info(view.toString());
 
-        if(view.name == null) {
-            throw new IllegalArgumentException("orgName is null");
-        }
+        checkFilterParams(view);
 
         Organization organization = new Organization();
 
@@ -155,50 +153,59 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizations.stream().map(mapOrganization).collect(Collectors.toList());
     }
 
-    private void checkOrganization(Organization organization){
-        if(Strings.isNullOrEmpty(organization.getName())) {
+    private void checkOrganization(Organization organization) {
+
+        String name = organization.getName();
+        String fullName = organization.getFullName();
+        String inn = organization.getInn();
+        String kpp = organization.getKpp();
+        String phone = organization.getPhone();
+        Boolean isActive = organization.isActive();
+
+        if (Strings.isNullOrEmpty(name)) {
             throw new IllegalArgumentException("orgName is wrong");
         }
 
-        if(Strings.isNullOrEmpty(organization.getFullName())) {
+        if (Strings.isNullOrEmpty(fullName)) {
             throw new IllegalArgumentException("orgFullName is wrong");
         }
 
-        if(!checkInn(organization.getInn())) {
+        if ((inn == null) || (!checkInn(inn))) {
             throw new IllegalArgumentException("orgInn is wrong");
         }
 
-        if(!checkKpp(organization.getKpp())) {
+        if ((kpp == null) || (!checkKpp(kpp))) {
             throw new IllegalArgumentException("orgKpp is wrong");
         }
 
-        if(!checkPhone(organization.getPhone())) {
+        if ((phone == null) || (!checkPhone(phone))) {
             throw new IllegalArgumentException("orgPhone is wrong");
         }
 
-        if(organization.isActive() == null) {
+        if (isActive == null) {
             throw new IllegalArgumentException("orgIsActive is wrong");
         }
     }
 
-    private boolean checkInn(String inn) {
-        if(inn == null) {
-            return false;
+    private void checkFilterParams(OrganizationFilter filter) {
+        if (filter.name == null) {
+            throw new IllegalArgumentException("orgName is null");
         }
+
+        if ((filter.inn != null) && (!checkInn(filter.inn))) {
+            throw new IllegalArgumentException("orgInn is wrong");
+        }
+    }
+
+    private boolean checkInn(String inn) {
         return inn.matches("\\d{10}");
     }
 
     private boolean checkKpp(String kpp) {
-        if(kpp == null) {
-            return false;
-        }
         return kpp.matches("\\d{9}");
     }
 
     private boolean checkPhone(String phone) {
-        if(phone == null) {
-            return false;
-        }
         return phone.matches("^\\d[\\d\\(\\)\\ -]{8,20}\\d$");
     }
 

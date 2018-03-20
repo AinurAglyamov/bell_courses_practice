@@ -2,9 +2,11 @@ package ru.bellintegrator.practice.reference.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.reference.dao.CountryDao;
+import ru.bellintegrator.practice.reference.error.CountryNotFoundException;
 import ru.bellintegrator.practice.reference.model.Country;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -24,5 +26,31 @@ public class CountryDaoImpl implements CountryDao {
     public List<Country> all() {
         TypedQuery<Country> query = em.createQuery("SELECT c FROM Country c", Country.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Country findByCodeAndName(Integer code, String name) {
+        if(code == null) {
+            throw new IllegalArgumentException("citizenshipCode is null");
+        }
+
+        if(name == null) {
+            throw new IllegalArgumentException("citizenshipName is null");
+        }
+
+        TypedQuery<Country> query = em.createNamedQuery("findCountryByCodeAndName", Country.class);
+
+        query.setParameter("code", code);
+        query.setParameter("name", name);
+
+        Country country = null;
+
+        try {
+            country = query.getSingleResult();
+        } catch (NoResultException e) {
+            throw new CountryNotFoundException(code, name);
+        }
+
+        return country;
     }
 }

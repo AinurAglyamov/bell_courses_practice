@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.employee.dao.impl;
 import com.google.common.base.Strings;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.employee.dao.EmployeeDao;
+import ru.bellintegrator.practice.employee.error.EmployeeNotFoundException;
 import ru.bellintegrator.practice.employee.model.Employee;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
      */
     @Override
     public Employee loadById(Long id) {
-        return em.find(Employee.class, id);
+        if(id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+
+        Employee employee = em.find(Employee.class, id);
+
+        if (employee == null) {
+            throw new EmployeeNotFoundException(id);
+        }
+
+        return employee ;
+
     }
 
     /**
@@ -50,11 +62,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         employeeToUpdate.setMiddleName(employee.getMiddleName());
         employeeToUpdate.setPosition(employee.getPosition());
         employeeToUpdate.setPhone(employee.getPhone());
-        employeeToUpdate.getDocumentType().setName(employee.getDocumentType().getName());
+        employeeToUpdate.setDocumentType(employee.getDocumentType());
         employeeToUpdate.setDocNumber(employee.getDocNumber());
         employeeToUpdate.setDocDate(employee.getDocDate());
-        employeeToUpdate.getCountry().setName(employee.getCountry().getName());
-        employeeToUpdate.getCountry().setCode(employee.getCountry().getCode());
+        employeeToUpdate.setCountry(employee.getCountry());
         employeeToUpdate.setIdentified(employee.isIdentified());
 
     }

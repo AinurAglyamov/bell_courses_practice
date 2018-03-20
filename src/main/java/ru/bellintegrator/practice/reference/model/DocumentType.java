@@ -4,6 +4,21 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Document_Type")
+@NamedQueries({
+        @NamedQuery(
+                name = "findDocTypeByCode",
+                query = "SELECT d FROM DocumentType d WHERE d.code = :code"
+        ),
+        @NamedQuery(
+                name = "findDocTypeByName",
+                query = "SELECT d FROM DocumentType d WHERE d.name = :name"
+        )
+        ,
+        @NamedQuery(
+                name = "findDocTypeByCodeAndName",
+                query = "SELECT d FROM DocumentType d WHERE d.code = :code AND d.name = :name"
+        )
+})
 public class DocumentType {
 
     @Id

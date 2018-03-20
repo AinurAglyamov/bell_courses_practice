@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.employee.service.impl;
 
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
+import ru.bellintegrator.practice.reference.dao.CountryDao;
+import ru.bellintegrator.practice.reference.dao.DocumentTypeDao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -21,13 +25,17 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService{
     private final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
-    private EmployeeDao dao;
+    private EmployeeDao employeeDao;
     private OfficeDao officeDao;
+    private DocumentTypeDao documentTypeDao;
+    private CountryDao countryDao;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDao dao, OfficeDao officeDao) {
-        this.dao = dao;
+    public EmployeeServiceImpl(EmployeeDao employeeDao, OfficeDao officeDao, DocumentTypeDao documentTypeDao, CountryDao countryDao) {
+        this.employeeDao = employeeDao;
         this.officeDao = officeDao;
+        this.documentTypeDao = documentTypeDao;
+        this.countryDao = countryDao;
     }
 
     /**
@@ -38,7 +46,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     public EmployeeView loadById(Long id) {
         log.info("id: " + id);
 
-        Employee employee = dao.loadById(id);
+        if(id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+
+        Employee employee = employeeDao.loadById(id);
 
         EmployeeView view = new EmployeeView();
         view.firstName = employee.getFirstName();
@@ -67,23 +79,27 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void save(EmployeeToSave view) {
         log.info("Employee to save: " + view);
 
+        if(view.officeId == null) {
+            throw new IllegalArgumentException("orgId is null");
+        }/**/
+
         Employee employee = new Employee();
         employee.setFirstName(view.firstName);
         employee.setSecondName(view.secondName);
         employee.setMiddleName(view.middleName);
         employee.setPosition(view.position);
         employee.setPhone(view.phone);
-        employee.getDocumentType().setCode(view.docCode);
-        employee.getDocumentType().setName(view.docName);
         employee.setDocNumber(view.docNumber);
         employee.setDocDate(view.docDate);
-        employee.getCountry().setName(view.citizenshipName);
-        employee.getCountry().setCode(view.citizenshipCode);
+        employee.setDocumentType(documentTypeDao.findByNameAndCode(view.docCode, view.docName));
+        employee.setCountry(countryDao.findByCodeAndName(view.citizenshipCode, view.citizenshipName));
         employee.setIdentified(view.isIdentified);
 
         officeDao.loadById(view.officeId).addEmployee(employee);
 
-        dao.save(employee);
+        checkEmployee(employee);
+
+        employeeDao.save(employee);
     }
 
     /**
@@ -94,6 +110,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void update(EmployeeView view) {
         log.info("updated Employee" + view.toString());
 
+        if (view.id == null) {
+            throw new IllegalArgumentException("id is null");
+        }/**/
+
         Employee employee = new Employee();
 
         employee.setId(view.id);
@@ -102,14 +122,15 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setMiddleName(view.middleName);
         employee.setPosition(view.position);
         employee.setPhone(view.phone);
-        employee.getDocumentType().setName(view.docName);
         employee.setDocNumber(view.docNumber);
         employee.setDocDate(view.docDate);
-        employee.getCountry().setName(view.citizenshipName);
-        employee.getCountry().setCode(view.citizenshipCode);
+        employee.setDocumentType(documentTypeDao.findByNameAndCode(view.docCode, view.docName));
+        employee.setCountry(countryDao.findByCodeAndName(view.citizenshipCode, view.citizenshipName));
         employee.setIdentified(view.isIdentified);
 
-        dao.update(employee);
+        checkEmployee(employee);
+
+        employeeDao.update(employee);
     }
 
     /**
@@ -118,7 +139,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     @Transactional
     public void delete(Long id) {
-        dao.delete(id);
+        if (id == null) {
+            throw new IllegalArgumentException("employeeId is null");
+        }
+        employeeDao.delete(id);
     }
 
     /**
@@ -129,6 +153,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     public List<EmployeeView> list(EmployeeFilter view) {
         log.info("Filter: " + view.toString());
 
+        checkFilterParams(view);
+
         Employee employee = new Employee();
         employee.getOffice().setId(view.officeId);
         employee.setFirstName(view.firstName);
@@ -138,7 +164,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.getDocumentType().setCode(view.docCode);
         employee.getCountry().setCode(view.citizenshipCode);
 
-        List<Employee> employees = dao.list(employee);
+        List<Employee> employees = employeeDao.list(employee);
 
         Function<Employee, EmployeeView> mapEmployee = e -> {
             EmployeeView employeeView = new EmployeeView();
@@ -156,4 +182,68 @@ public class EmployeeServiceImpl implements EmployeeService{
 
         return employees.stream().map(mapEmployee).collect(Collectors.toList());
     }
+
+    private void checkEmployee(Employee employee) {
+        String firstName = employee.getFirstName();
+        String secondName = employee.getSecondName();
+        String middleName = employee.getMiddleName();
+        String position = employee.getPosition();
+        String phone = employee.getPhone();
+        Boolean isIdentified = employee.isIdentified();
+
+        if((firstName == null) || (!checkName(firstName))){
+            throw new IllegalArgumentException("employeeFirstName is wrong");
+        }
+        if((secondName == null) || (!checkName(secondName))){
+            throw new IllegalArgumentException("employeeSecondName is wrong");
+        }
+        if((middleName == null) || (!checkName(middleName))){
+            throw new IllegalArgumentException("employeeMiddleName is wrong");
+        }
+        if(Strings.isNullOrEmpty(position)){
+            throw new IllegalArgumentException("employeePosition is wrong");
+        }
+        if((phone == null) || (!checkPhone(phone))) {
+            throw new IllegalArgumentException("employeePhone is wrong");
+        }
+        if(isIdentified == null) {
+            throw new IllegalArgumentException("employeeIsIdentified is null");
+        }
+
+    }
+
+    private void checkFilterParams(EmployeeFilter filter) {
+        Long officeId = filter.officeId;
+        String firstName = filter.firstName;
+        String secondName = filter.secondName;
+        String middleName = filter.middleName;
+
+        if(officeId == null) {
+            throw new IllegalArgumentException("officeId is null");
+        }
+
+        officeDao.loadById(officeId);
+
+        if((firstName != null) && (!checkName(firstName))) {
+            throw new IllegalArgumentException("firstName is wrong");
+        }
+
+        if((secondName != null) && (!checkName(secondName))) {
+            throw new IllegalArgumentException("firstName is wrong");
+        }
+
+        if((middleName != null) && (!checkName(middleName))) {
+            throw new IllegalArgumentException("firstName is wrong");
+        }
+
+    }
+
+    private boolean checkName(String name) {
+         return name.matches("[A-zА-я]+");
+    }
+
+    private boolean checkPhone(String phone) {
+        return phone.matches("^\\d[\\d\\(\\)\\ -]{8,20}\\d$");
+    }
+
 }

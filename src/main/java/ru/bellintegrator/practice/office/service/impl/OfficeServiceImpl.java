@@ -45,7 +45,7 @@ public class OfficeServiceImpl implements OfficeService {
     public OfficeView loadById(Long id) {
         log.info("id = " + id);
 
-        if(id == null) {
+        if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
 
@@ -73,9 +73,9 @@ public class OfficeServiceImpl implements OfficeService {
     public void save(OfficeToSave view) {
         log.info("Office to save:" + view.toString());
 
-        /*if(view.orgId == null) {
-            throw new IllegalArgumentException("orgId is null");
-        }*/
+        if(view.orgId == null) {
+            throw new IllegalArgumentException("officeId is null");
+        }/**/
 
         Office office = new Office();
 
@@ -99,7 +99,7 @@ public class OfficeServiceImpl implements OfficeService {
     public void update(OfficeView view) {
         log.info("updated Office" + view.toString());
 
-        if(view.id == null) {
+        if (view.id == null) {
             throw new IllegalArgumentException("id is null");
         }
 
@@ -122,7 +122,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional
     public void delete(Long id) {
-        if(id == null) {
+        if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
         dao.delete(id);
@@ -136,11 +136,7 @@ public class OfficeServiceImpl implements OfficeService {
     public List<OfficeView> list(OfficeFilter view) {
         log.info("Filter: " + view.toString());
 
-        if(view.orgId == null) {
-            throw new IllegalArgumentException("orgId is null");
-        }
-
-        orgDao.loadById(view.orgId);
+        checkFilterParams(view);
 
         Office office = new Office();
 
@@ -165,18 +161,38 @@ public class OfficeServiceImpl implements OfficeService {
         return offices.stream().map(mapOffice).collect(Collectors.toList());
     }
 
-    private void checkOffice(Office office){
-        if(Strings.isNullOrEmpty(office.getName())) {
-            throw new IllegalArgumentException("officeName is null or empty");
+    private void checkOffice(Office office) {
+        String name = office.getName();
+        String phone = office.getPhone();
+        Boolean isActive = office.isActive();
+
+        if (Strings.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("officeName is wrong");
         }
 
-        if(Strings.isNullOrEmpty(office.getPhone())) {
-            throw new IllegalArgumentException("officePhone is null or empty");
+        if ((phone == null) || (!checkPhone(phone))) {
+            throw new IllegalArgumentException("officePhone is wrong");
         }
 
-        if(office.isActive() == null) {
-            throw new IllegalArgumentException("officeIsActive is null");
+        if (isActive == null) {
+            throw new IllegalArgumentException("officeIsActive is wrong");
         }
 
+    }
+
+    private void checkFilterParams(OfficeFilter filter) {
+        if (filter.orgId == null) {
+            throw new IllegalArgumentException("orgId is null");
+        }
+
+        orgDao.loadById(filter.orgId);
+
+        if((filter.phone != null) && (!checkPhone(filter.phone))) {
+            throw new IllegalArgumentException("officePhone is wrong");
+        }
+    }
+
+    private boolean checkPhone(String phone) {
+        return phone.matches("^\\d[\\d\\(\\)\\ -]{8,20}\\d$");
     }
 }

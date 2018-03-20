@@ -41,11 +41,11 @@ public class Employee {
     @JoinColumn(name = "office_id")
     private Office office;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "doc_type_id")
     private DocumentType documentType;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
 
@@ -115,11 +115,11 @@ public class Employee {
         this.phone = phone;
     }
 
-    public boolean isIdentified() {
+    public Boolean isIdentified() {
         return isIdentified;
     }
 
-    public void setIdentified(boolean identified) {
+    public void setIdentified(Boolean identified) {
         isIdentified = identified;
     }
 

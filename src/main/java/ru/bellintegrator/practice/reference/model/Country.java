@@ -6,6 +6,17 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "findCountryByCodeAndName",
+                query = "SELECT c FROM Country c WHERE c.code = :code AND c.name = :name"
+        ),
+        @NamedQuery(
+                name = "findCountryByCode",
+                query = "SELECT c FROM Country c WHERE c.code = :code"
+        )
+})
+
 public class Country {
 
     @Id

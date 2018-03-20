@@ -13,4 +13,14 @@ public interface CountryDao {
      * @return list of countries
      */
     List<Country> all();
+
+    /**
+     *
+     * get Country by code and name
+     *
+     * @param code
+     * @param name
+     * @return Country value
+     */
+    Country findByCodeAndName(Integer code, String name);
 }
