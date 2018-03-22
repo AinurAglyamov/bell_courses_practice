@@ -19,6 +19,9 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    private String code;
+
+    @Column(nullable = false)
     private Boolean isActive;
 
     @Version
@@ -27,11 +30,12 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, String name, String email, Boolean isActive) {
+    public User(String login, String password, String name, String email, String code, Boolean isActive) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.code = code;
         this.isActive = isActive;
     }
 
@@ -79,6 +83,15 @@ public class User {
         this.email = email;
     }
 
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -87,6 +100,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", code='" + code + '\'' +
                 ", isActive=" + isActive +
                 '}';
     }

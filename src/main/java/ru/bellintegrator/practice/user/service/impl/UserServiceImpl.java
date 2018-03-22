@@ -1,5 +1,7 @@
 package ru.bellintegrator.practice.user.service.impl;
 
+import com.google.common.base.Strings;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,18 +34,51 @@ public class UserServiceImpl implements UserService{
     public void save(UserView view) {
         log.info(view.toString());
 
+        checkUser(view);
+
         String login = view.login;
         String password = encodingService.encode(view.password);
         String name = view.name;
         String email = view.email;
+        //String code = RandomStringUtils.randomAlphanumeric(10);
+        String code = encodingService.encode(RandomStringUtils.randomAlphanumeric(10));
+
+        log.info("code = " + code);
 
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
         user.setName(name);
         user.setEmail(email);
+        user.setCode(code);
         user.setActive(false);
 
         userDao.save(user);
+    }
+
+    private void checkUser(UserView view) {
+        if(Strings.isNullOrEmpty(view.login)){
+            throw new IllegalArgumentException("login is wrong");
+        }
+
+        if(Strings.isNullOrEmpty(view.password)){
+            throw new IllegalArgumentException("password is wrong");
+        }
+
+        if((view.name != null) && (!checkName(view.name))){
+            throw new IllegalArgumentException("name is wrong");
+        }
+
+        if((view.email != null) && (!checkEmail(view.email))){
+            throw new IllegalArgumentException("email is wrong");
+        }
+    }
+
+    private boolean checkName(String name) {
+        return name.matches("[A-zА-я]+");
+    }
+
+    private boolean checkEmail(String email) {
+        return email.matches("[A-Za-z0-9.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
     }
 }

@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS User (
   name      VARCHAR(50),
   login     VARCHAR(50) NOT NULL,
   password  VARCHAR(50) NOT NULL,
+  code      VARCHAR(50) NOT NULL,
   email     VARCHAR(50),
   is_active BOOLEAN     NOT NULL,
   version   INTEGER     NOT NULL

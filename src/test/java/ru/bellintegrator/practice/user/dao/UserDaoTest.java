@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.user.dao;
 
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
 import ru.bellintegrator.practice.user.error.UserAlreadyExistsException;
 import ru.bellintegrator.practice.user.model.User;
+import ru.bellintegrator.practice.user.service.EncodingService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
@@ -24,13 +26,17 @@ public class UserDaoTest {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private EncodingService encodingService;
+
     @Test(expected = UserAlreadyExistsException.class)
     public void testExceptionWhenUserAlreadyExists(){
         User user = new User();
         user.setLogin("weer");
         user.setPassword("piemlushii");
         user.setName("vlad");
-        user.setActive(true);
+        user.setCode(encodingService.encode(RandomStringUtils.randomAlphanumeric(10)));
+        user.setActive(false);
 
         userDao.save(user);
         userDao.save(user);
@@ -41,6 +47,7 @@ public class UserDaoTest {
         User user = new User();
         user.setLogin("vladpiem");
         user.setPassword("piemlushii");
+        user.setCode(encodingService.encode(RandomStringUtils.randomAlphanumeric(10)));
         user.setActive(false);
 
         userDao.save(user);
