@@ -6,14 +6,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.bellintegrator.practice.response.view.ResponseView;
 import ru.bellintegrator.practice.user.error.UserAlreadyExistsException;
+import ru.bellintegrator.practice.user.error.UserException;
 
 @RestControllerAdvice
 public class UserExceptionHandler {
 
     Logger log = LoggerFactory.getLogger(UserExceptionHandler.class);
 
-    @ExceptionHandler(UserAlreadyExistsException.class)
-    public ResponseView userAlreadyExistsExceptionHandler(UserAlreadyExistsException e){
+    @ExceptionHandler(UserException.class)
+    public ResponseView userExceptionHandler(UserException e){
         log.error(null, e);
 
         ResponseView view = new ResponseView();

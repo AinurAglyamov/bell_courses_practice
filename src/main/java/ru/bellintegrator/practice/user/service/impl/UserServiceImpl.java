@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.user.dao.UserDao;
+import ru.bellintegrator.practice.user.error.UserIsNotActivatedException;
 import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
@@ -40,8 +41,11 @@ public class UserServiceImpl implements UserService{
         String password = encodingService.encode(view.password);
         String name = view.name;
         String email = view.email;
-        //String code = RandomStringUtils.randomAlphanumeric(10);
-        String code = encodingService.encode(RandomStringUtils.randomAlphanumeric(10));
+        String randomString = RandomStringUtils.randomAlphanumeric(10);
+
+        log.info("randomString = " + randomString);
+
+        String code = encodingService.encode(randomString);
 
         log.info("code = " + code);
 
@@ -54,6 +58,44 @@ public class UserServiceImpl implements UserService{
         user.setActive(false);
 
         userDao.save(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void activate(String activationCode) {
+        if(Strings.isNullOrEmpty(activationCode)){
+            throw new IllegalArgumentException("activationCode is wrong");
+        }
+
+        String code = encodingService.encode(activationCode);
+        User user = userDao.findByCode(code);
+        user.setActive(true);
+
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void login(UserView view) {
+        log.info("login = " + view.login + " password = " + view.password);
+
+        checkUser(view);
+
+        String login = view.login;
+        String password = encodingService.encode(view.password);
+
+        User user = userDao.findByLoginAndPassword(login, password);
+
+        if(!user.isActive()){
+            throw new UserIsNotActivatedException("Пользователь не активирован");
+        }
+
     }
 
     private void checkUser(UserView view) {

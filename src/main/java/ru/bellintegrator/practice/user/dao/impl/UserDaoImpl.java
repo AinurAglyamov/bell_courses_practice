@@ -48,6 +48,25 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+    @Override
+    public User findByCode(String code) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.code = :code", User.class);
+        query.setParameter("code", code);
+        return query.getSingleResult();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User findByLoginAndPassword(String login, String password) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.login = :login AND u.password = :password", User.class);
+        query.setParameter("login", login);
+        query.setParameter("password", password);
+        User user = query.getSingleResult();
+        return user;
+    }
+
     /*public List<User> list(){
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         List<User> users = query.getResultList();

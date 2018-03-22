@@ -22,4 +22,24 @@ public interface UserDao {
      * @return User value
      */
     List<User> findByLogin(String login);
+
+
+    /**
+     *
+     * get User by code
+     *
+     * @param code
+     * @return user value
+     */
+    User findByCode(String code);
+
+    /**
+     *
+     * get User by login and password
+     *
+     * @param login
+     * @param password
+     * @return User value
+     */
+    User findByLoginAndPassword(String login, String password);
 }

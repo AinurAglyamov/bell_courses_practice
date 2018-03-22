@@ -1,6 +1,6 @@
 package ru.bellintegrator.practice.user.error;
 
-public class UserAlreadyExistsException extends RuntimeException {
+public class UserAlreadyExistsException extends UserException {
 
     /*public UserAlreadyExistsException(String message) {
         super(message);

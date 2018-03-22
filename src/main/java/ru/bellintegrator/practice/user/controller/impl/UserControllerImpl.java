@@ -3,10 +3,7 @@ package ru.bellintegrator.practice.user.controller.impl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.user.controller.UserController;
 import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
@@ -35,4 +32,25 @@ public class UserControllerImpl implements UserController{
     public void register(@RequestBody UserView user) {
         userService.save(user);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ApiOperation(value = "activate User", httpMethod = "GET")
+    @GetMapping("/activation")
+    public void activate(@RequestParam String code) {
+        userService.activate(code);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @ApiOperation(value = "login User", httpMethod = "POST")
+    @PostMapping("/login")
+    public void login(@RequestBody UserView user) {
+        userService.login(user);
+    }
 }
+
