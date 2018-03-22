@@ -56,9 +56,10 @@ CREATE TABLE IF NOT EXISTS Employee (
 
 CREATE TABLE IF NOT EXISTS User (
   id       INTEGER PRIMARY KEY AUTO_INCREMENT,
-  name     VARCHAR(50) NOT NULL,
+  name     VARCHAR(50),
   login    VARCHAR(50) NOT NULL,
   password VARCHAR(50) NOT NULL,
+  is_active BOOLEAN NOT NULL,
   version  INTEGER     NOT NULL
 );
 

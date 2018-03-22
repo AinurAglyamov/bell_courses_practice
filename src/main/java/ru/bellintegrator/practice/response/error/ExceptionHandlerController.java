@@ -12,8 +12,8 @@ public class ExceptionHandlerController {
 
     Logger log = LoggerFactory.getLogger(ExceptionHandlerController.class);
 
-    @ExceptionHandler({Exception.class})
-    public ResponseView unhandledException(Exception e) {
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseView unhandledException(IllegalArgumentException e) {
         log.error(null, e);
 
         ResponseView view = new ResponseView();
