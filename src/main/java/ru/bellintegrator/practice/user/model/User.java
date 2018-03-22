@@ -16,6 +16,7 @@ public class User {
     private String password;
 
     private String name;
+    private String email;
 
     @Column(nullable = false)
     private Boolean isActive;
@@ -26,10 +27,11 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password, String name, Boolean isActive) {
+    public User(String login, String password, String name, String email, Boolean isActive) {
         this.login = login;
         this.password = password;
         this.name = name;
+        this.email = email;
         this.isActive = isActive;
     }
 
@@ -69,6 +71,14 @@ public class User {
         isActive = active;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -76,6 +86,7 @@ public class User {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", isActive=" + isActive +
                 '}';
     }

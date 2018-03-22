@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.user.controller.UserController;
-import ru.bellintegrator.practice.user.service.SecurityService;
+import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
 import ru.bellintegrator.practice.user.view.UserView;
 
@@ -20,16 +20,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserControllerImpl implements UserController{
 
     private UserService userService;
-    private SecurityService securityService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
     }
 
     /**
@@ -39,7 +33,6 @@ public class UserControllerImpl implements UserController{
     @ApiOperation(value = "register User", httpMethod = "POST")
     @PostMapping("/register")
     public void register(@RequestBody UserView user) {
-        user.password = securityService.encode(user.password);
         userService.save(user);
     }
 }

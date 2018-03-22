@@ -27,6 +27,8 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public void save(User user) {
+        log.info(user.toString());
+
         if(!findByLogin(user.getLogin()).isEmpty()){
             throw new UserAlreadyExistsException(user.getLogin());
         }

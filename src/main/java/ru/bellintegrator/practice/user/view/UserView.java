@@ -8,15 +8,11 @@ public class UserView {
     public String login;
     public String password;
     public String name;
+    public String email;
 
     public UserView() {
     }
 
-    public UserView(String login, String password, String name) {
-        this.login = login;
-        this.password = password;
-        this.name = name;
-    }
 
     @Override
     public String toString() {
@@ -24,6 +20,7 @@ public class UserView {
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", email='" + name + '\'' +
                 '}';
     }
 }

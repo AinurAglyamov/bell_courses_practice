@@ -1,6 +1,6 @@
 package ru.bellintegrator.practice.user.service;
 
-public interface SecurityService {
+public interface EncodingService {
 
     /**
      *
