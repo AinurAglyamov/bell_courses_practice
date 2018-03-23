@@ -11,6 +11,7 @@ import ru.bellintegrator.practice.user.error.UserIsNotActivatedException;
 import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
+import ru.bellintegrator.practice.user.view.UserLoginView;
 import ru.bellintegrator.practice.user.view.UserView;
 
 
@@ -82,10 +83,17 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     @Transactional
-    public void login(UserView view) {
+    public void login(UserLoginView view) {
         log.info("login = " + view.login + " password = " + view.password);
 
-        checkUser(view);
+        //checkUser(view);
+        if(Strings.isNullOrEmpty(view.login)){
+            throw new IllegalArgumentException("login is wrong");
+        }
+
+        if(Strings.isNullOrEmpty(view.password)){
+            throw new IllegalArgumentException("password is wrong");
+        }
 
         String login = view.login;
         String password = encodingService.encode(view.password);

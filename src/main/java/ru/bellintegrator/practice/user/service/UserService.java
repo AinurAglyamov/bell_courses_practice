@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.user.service;
 
+import ru.bellintegrator.practice.user.view.UserLoginView;
 import ru.bellintegrator.practice.user.view.UserView;
 
 public interface UserService {
@@ -25,5 +26,5 @@ public interface UserService {
      *
      * @param view
      */
-    void login(UserView view);
+    void login(UserLoginView view);
 }

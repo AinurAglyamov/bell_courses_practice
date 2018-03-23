@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.user.controller.UserController;
 import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
+import ru.bellintegrator.practice.user.view.UserLoginView;
 import ru.bellintegrator.practice.user.view.UserView;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -49,7 +50,7 @@ public class UserControllerImpl implements UserController{
     @Override
     @ApiOperation(value = "login User", httpMethod = "POST")
     @PostMapping("/login")
-    public void login(@RequestBody UserView user) {
+    public void login(@RequestBody UserLoginView user) {
         userService.login(user);
     }
 }

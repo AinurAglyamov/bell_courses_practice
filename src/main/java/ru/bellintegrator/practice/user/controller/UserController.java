@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.user.controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.bellintegrator.practice.user.view.UserLoginView;
 import ru.bellintegrator.practice.user.view.UserView;
 
 public interface UserController {
@@ -26,5 +27,5 @@ public interface UserController {
      *
      * @param user
      */
-    void login(@RequestBody UserView user);
+    void login(@RequestBody UserLoginView user);
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.user.dao.UserDao;
 import ru.bellintegrator.practice.user.error.UserAlreadyExistsException;
+import ru.bellintegrator.practice.user.error.UserNotFoundException;
 import ru.bellintegrator.practice.user.model.User;
 
 import javax.persistence.EntityManager;
@@ -48,11 +49,21 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User findByCode(String code) {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.code = :code", User.class);
         query.setParameter("code", code);
-        return query.getSingleResult();
+
+        List<User> users = query.getResultList();
+
+        if(users.isEmpty()){
+            throw new UserNotFoundException("Пользователь с заданным кодом не существует");
+        }
+
+        return users.get(0);
     }
 
     /**
@@ -63,8 +74,14 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.login = :login AND u.password = :password", User.class);
         query.setParameter("login", login);
         query.setParameter("password", password);
-        User user = query.getSingleResult();
-        return user;
+
+        List<User> users = query.getResultList();
+
+        if(users.isEmpty()){
+            throw new UserNotFoundException("Пользователь с заданными логином и паролем не существует");
+        }
+
+        return users.get(0);
     }
 
     /*public List<User> list(){
