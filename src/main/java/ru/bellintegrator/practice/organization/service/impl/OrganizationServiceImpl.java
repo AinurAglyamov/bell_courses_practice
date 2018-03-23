@@ -124,6 +124,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void delete(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("orgId is null");
+        }
         organizationDao.delete(id);
     }
 
@@ -150,6 +153,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             organizationView.id = o.getId();
             organizationView.name = o.getName();
             organizationView.isActive = o.isActive();
+            organizationView.officesCount = o.getOffices().size();
 
             log.info(organizationView.toString());
 
@@ -190,13 +194,19 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     private void checkFilterParams(OrganizationFilter filter) {
-        /*if (filter.name == null) {
-            throw new IllegalArgumentException("orgName is null");
-        }*/
+        String name = filter.name;
+        String inn = filter.inn;
+        Boolean isActive = filter.isActive;
 
-        if ((filter.inn != null) && (!checkInn(filter.inn))) {
-            throw new IllegalArgumentException("orgInn is wrong");
+        if((!Strings.isNullOrEmpty(name)) || (!Strings.isNullOrEmpty(inn)) || (isActive != null)){
+            if(Strings.isNullOrEmpty(name)){
+                throw new IllegalArgumentException("orgName is null");
+            }
+            if ((!Strings.isNullOrEmpty(inn)) && (!checkInn(inn))) {
+                throw new IllegalArgumentException("orgInn is wrong");
+            }
         }
+
     }
 
     private boolean checkInn(String inn) {

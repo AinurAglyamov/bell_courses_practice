@@ -37,7 +37,7 @@ public interface OrganizationController {
      *
      * @param id
      */
-    void deleteOrganization(@RequestBody Long id);
+    void deleteOrganization(@PathVariable Long id);
 
     /**
      *

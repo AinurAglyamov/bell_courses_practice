@@ -16,6 +16,7 @@ public class OrganizationView {
     public String address;
     public String phone;
     public Boolean isActive;
+    public Integer officesCount;
 
     public OrganizationView() {
     }
