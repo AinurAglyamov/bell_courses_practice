@@ -31,13 +31,12 @@ public class OrganizationControllerImpl implements OrganizationController{
     @ApiOperation(value = "get Organization by id", httpMethod = "GET")
     @GetMapping("/{id}")
     public OrganizationView organizationById(@PathVariable Long id) {
-
         return organizationService.loadById(id);
     }
 
     @Override
     @ApiOperation(value = "add Organization", httpMethod = "POST")
-    @PostMapping("/save")
+    @PostMapping("/create")
     public void saveOrganization(@RequestBody OrganizationToSave organization) {
         organizationService.save(organization);
     }

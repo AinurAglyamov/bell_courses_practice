@@ -23,4 +23,13 @@ public interface CountryDao {
      * @return Country value
      */
     Country findByCodeAndName(Integer code, String name);
+
+    /**
+     *
+     * get Country by code
+     *
+     * @param code
+     * @return Country value
+     */
+    Country findByCode(Integer code);
 }

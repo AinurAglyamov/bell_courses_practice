@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.organization.model;
 
 import ru.bellintegrator.practice.office.model.Office;
+import ru.bellintegrator.practice.reference.model.Country;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ public class Organization {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -25,13 +25,15 @@ public class Organization {
     @Column(nullable = false)
     private String kpp;
 
+    @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
     private String phone;
-
-    @Column(nullable = false)
     private Boolean isActive;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Office> offices;
@@ -122,6 +124,18 @@ public class Organization {
         return offices;
     }
 
+    public void setOffices(List<Office> offices) {
+        this.offices = offices;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
     public Integer getVersion() {
         return version;
     }
@@ -130,9 +144,6 @@ public class Organization {
         this.version = version;
     }
 
-    public void setOffices(List<Office> offices) {
-        this.offices = offices;
-    }
 
     public void addOffice(Office office) {
         getOffices().add(office);

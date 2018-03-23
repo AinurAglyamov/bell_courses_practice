@@ -6,6 +6,7 @@ public class OrganizationToSave {
     public String fullName;
     public String inn;
     public String kpp;
+    public Integer countryCode;
     public String address;
     public String phone;
     public Boolean isActive;
@@ -13,11 +14,12 @@ public class OrganizationToSave {
     public OrganizationToSave() {
     }
 
-    public OrganizationToSave(String name, String fullName, String inn, String kpp, String address, String phone, Boolean isActive) {
+    public OrganizationToSave(String name, String fullName, String inn, String kpp, Integer countryCode, String address, String phone, Boolean isActive) {
         this.name = name;
         this.fullName = fullName;
         this.inn = inn;
         this.kpp = kpp;
+        this.countryCode = countryCode;
         this.address = address;
         this.phone = phone;
         this.isActive = isActive;
@@ -25,14 +27,15 @@ public class OrganizationToSave {
 
     @Override
     public String toString() {
-        return "{" +
-                "name:'" + name + '\'' +
-                ", fullName:'" + fullName + '\'' +
-                ", inn:'" + inn + '\'' +
-                ", kpp:'" + kpp + '\'' +
-                ", address:'" + address + '\'' +
-                ", phone:'" + phone + '\'' +
-                ", isActive:" + isActive +
+        return "OrganizationToSave{" +
+                "name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", inn='" + inn + '\'' +
+                ", kpp='" + kpp + '\'' +
+                ", countryCode=" + countryCode +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }

@@ -10,4 +10,8 @@ public class CountryNotFoundException extends ReferenceException{
     public CountryNotFoundException(Integer code, String name) {
         super("Country with code = " + code + " and with name = " + name + " not found");
     }
+
+    public CountryNotFoundException(Integer code) {
+        super("Country with code = " + code + " not found");
+    }
 }

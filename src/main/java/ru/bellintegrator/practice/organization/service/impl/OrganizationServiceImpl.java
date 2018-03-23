@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.organization.service.impl;
 
 import com.google.common.base.Strings;
-import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import ru.bellintegrator.practice.organization.service.OrganizationService;
 import ru.bellintegrator.practice.organization.view.OrganizationFilter;
 import ru.bellintegrator.practice.organization.view.OrganizationToSave;
 import ru.bellintegrator.practice.organization.view.OrganizationView;
+import ru.bellintegrator.practice.reference.dao.CountryDao;
 
 import java.util.List;
 import java.util.function.Function;
@@ -22,11 +22,13 @@ import java.util.stream.Collectors;
 public class OrganizationServiceImpl implements OrganizationService {
     private final Logger log = LoggerFactory.getLogger(OrganizationServiceImpl.class);
 
-    private OrganizationDao dao;
+    private OrganizationDao organizationDao;
+    private CountryDao countryDao;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationDao dao) {
-        this.dao = dao;
+    public OrganizationServiceImpl(OrganizationDao organizationDao, CountryDao countryDao) {
+        this.organizationDao = organizationDao;
+        this.countryDao = countryDao;
     }
 
     /**
@@ -41,7 +43,7 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new IllegalArgumentException("id is null");
         }
 
-        Organization organization = dao.loadById(id);
+        Organization organization = organizationDao.loadById(id);
 
         OrganizationView view = new OrganizationView();
 
@@ -50,6 +52,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         view.fullName = organization.getFullName();
         view.inn = organization.getInn();
         view.kpp = organization.getKpp();
+        view.countryCode = organization.getCountry().getCode();
+        view.countryName = organization.getCountry().getName();
         view.address = organization.getAddress();
         view.phone = organization.getPhone();
         view.isActive = organization.isActive();
@@ -74,13 +78,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setFullName(view.fullName);
         organization.setInn(view.inn);
         organization.setKpp(view.kpp);
+        organization.setCountry(countryDao.findByCode(view.countryCode));
         organization.setAddress(view.address);
         organization.setPhone(view.phone);
         organization.setActive(view.isActive);
 
         checkOrganization(organization);
 
-        dao.save(organization);
+        organizationDao.save(organization);
 
     }
 
@@ -103,13 +108,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setFullName(view.fullName);
         organization.setInn(view.inn);
         organization.setKpp(view.kpp);
+        organization.setCountry(countryDao.findByCode(view.countryCode));
         organization.setAddress(view.address);
         organization.setPhone(view.phone);
         organization.setActive(view.isActive);
 
         checkOrganization(organization);
 
-        dao.update(organization);
+        organizationDao.update(organization);
     }
 
     /**
@@ -118,7 +124,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     @Transactional
     public void delete(Long id) {
-        dao.delete(id);
+        organizationDao.delete(id);
     }
 
     /**
@@ -137,7 +143,7 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setInn(view.inn);
         organization.setActive(view.isActive);
 
-        List<Organization> organizations = dao.list(organization);
+        List<Organization> organizations = organizationDao.list(organization);
 
         Function<Organization, OrganizationView> mapOrganization = o -> {
             OrganizationView organizationView = new OrganizationView();
@@ -155,16 +161,11 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     private void checkOrganization(Organization organization) {
 
-        String name = organization.getName();
         String fullName = organization.getFullName();
         String inn = organization.getInn();
         String kpp = organization.getKpp();
+        String address = organization.getAddress();
         String phone = organization.getPhone();
-        Boolean isActive = organization.isActive();
-
-        if (Strings.isNullOrEmpty(name)) {
-            throw new IllegalArgumentException("orgName is wrong");
-        }
 
         if (Strings.isNullOrEmpty(fullName)) {
             throw new IllegalArgumentException("orgFullName is wrong");
@@ -178,13 +179,14 @@ public class OrganizationServiceImpl implements OrganizationService {
             throw new IllegalArgumentException("orgKpp is wrong");
         }
 
-        if ((phone == null) || (!checkPhone(phone))) {
+        if (Strings.isNullOrEmpty(address)) {
+            throw new IllegalArgumentException("address is wrong");
+        }
+
+        if ((phone != null) && (!checkPhone(phone))) {
             throw new IllegalArgumentException("orgPhone is wrong");
         }
 
-        if (isActive == null) {
-            throw new IllegalArgumentException("orgIsActive is wrong");
-        }
     }
 
     private void checkFilterParams(OrganizationFilter filter) {

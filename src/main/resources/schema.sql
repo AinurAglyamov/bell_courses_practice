@@ -1,26 +1,3 @@
-CREATE TABLE IF NOT EXISTS Organization (
-  id        INTEGER PRIMARY KEY AUTO_INCREMENT,
-  name      VARCHAR(50)  NOT NULL,
-  full_name VARCHAR(100) NOT NULL,
-  inn       CHAR(10)     NOT NULL,
-  kpp       CHAR(9)      NOT NULL,
-  address   VARCHAR(100),
-  phone     VARCHAR(50)  NOT NULL,
-  is_active BOOLEAN      NOT NULL,
-  version   INTEGER      NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS Office (
-  id        INTEGER PRIMARY KEY AUTO_INCREMENT,
-  name      VARCHAR(50) NOT NULL,
-  address   VARCHAR(50),
-  phone     VARCHAR(50) NOT NULL,
-  is_active BOOLEAN     NOT NULL,
-  org_id    INTEGER,
-  version   INTEGER     NOT NULL,
-  FOREIGN KEY (org_id) REFERENCES Organization (id)
-);
-
 CREATE TABLE IF NOT EXISTS Document_Type (
   id      INTEGER PRIMARY KEY  AUTO_INCREMENT,
   code    INTEGER     NOT NULL,
@@ -34,6 +11,33 @@ CREATE TABLE IF NOT EXISTS Country (
   name    VARCHAR(50) NOT NULL,
   version INTEGER     NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS Organization (
+  id         INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name       VARCHAR(50),
+  full_name  VARCHAR(100) NOT NULL,
+  inn        CHAR(10)     NOT NULL,
+  kpp        CHAR(9)      NOT NULL,
+  address    VARCHAR(100) NOT NULL,
+  phone      VARCHAR(50),
+  is_active  BOOLEAN,
+  country_id INTEGER,
+  version    INTEGER      NOT NULL,
+  FOREIGN KEY (country_id) REFERENCES Country (id)
+);
+
+CREATE TABLE IF NOT EXISTS Office (
+  id        INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name      VARCHAR(50) NOT NULL,
+  address   VARCHAR(50),
+  phone     VARCHAR(50) NOT NULL,
+  is_active BOOLEAN     NOT NULL,
+  org_id    INTEGER,
+  version   INTEGER     NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES Organization (id)
+);
+
+
 
 CREATE TABLE IF NOT EXISTS Employee (
   id            INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -71,9 +75,12 @@ CREATE INDEX IX_Office_Organization_Id
 CREATE INDEX IX_User_Office_Id
   ON Employee (office_id);
 
-CREATE INDEX IX_User_Document_Id
+CREATE INDEX IX_Employee_Document_Id
   ON Employee (doc_type_id);
 
-CREATE INDEX IX_User_Country_Id
+CREATE INDEX IX_Employee_Country_Id
   ON Employee (country_id);
+
+CREATE INDEX IX_Organization_Country_Id
+  ON Organization (country_id);
 

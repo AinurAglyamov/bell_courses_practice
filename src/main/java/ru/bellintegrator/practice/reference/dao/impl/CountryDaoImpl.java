@@ -43,14 +43,30 @@ public class CountryDaoImpl implements CountryDao {
         query.setParameter("code", code);
         query.setParameter("name", name);
 
-        Country country = null;
+        List<Country> countries = query.getResultList();
 
-        try {
-            country = query.getSingleResult();
-        } catch (NoResultException e) {
+        if(countries.isEmpty()){
             throw new CountryNotFoundException(code, name);
         }
 
-        return country;
+        return countries.get(0);
+    }
+
+    @Override
+    public Country findByCode(Integer code) {
+        if(code == null) {
+            throw new IllegalArgumentException("countryCode is null");
+        }
+
+        TypedQuery<Country> query = em.createNamedQuery("findCountryByCode", Country.class);
+        query.setParameter("code", code);
+
+        List<Country> countries = query.getResultList();
+
+        if(countries.isEmpty()){
+            throw new CountryNotFoundException(code);
+        }
+
+        return countries.get(0);
     }
 }
