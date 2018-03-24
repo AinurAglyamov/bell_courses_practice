@@ -17,12 +17,10 @@ public class Office {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
     private String phone;
-
-    @Column(nullable = false)
     private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)

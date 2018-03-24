@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS Organization (
 CREATE TABLE IF NOT EXISTS Office (
   id        INTEGER PRIMARY KEY AUTO_INCREMENT,
   name      VARCHAR(50) NOT NULL,
-  address   VARCHAR(50),
-  phone     VARCHAR(50) NOT NULL,
-  is_active BOOLEAN     NOT NULL,
+  address   VARCHAR(50) NOT NULL,
+  phone     VARCHAR(50),
+  is_active BOOLEAN,
   org_id    INTEGER,
   version   INTEGER     NOT NULL,
   FOREIGN KEY (org_id) REFERENCES Organization (id)

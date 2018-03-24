@@ -23,9 +23,9 @@ public interface OfficeService {
      * save Office
      *
      * @param view
-     *
+     * @return office view
      */
-    void save(OfficeToSave view);
+    OfficeView save(OfficeToSave view);
 
     /**
      *

@@ -51,10 +51,10 @@ public class OfficeServiceImpl implements OfficeService {
 
         Office office = dao.loadById(id);
 
-
         OfficeView view = new OfficeView();
 
         view.id = office.getId();
+        view.orgId = office.getOrganization().getId();
         view.name = office.getName();
         view.address = office.getAddress();
         view.phone = office.getPhone();
@@ -70,7 +70,7 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     @Transactional
-    public void save(OfficeToSave view) {
+    public OfficeView save(OfficeToSave view) {
         log.info("Office to save:" + view.toString());
 
         if(view.orgId == null) {
@@ -89,6 +89,11 @@ public class OfficeServiceImpl implements OfficeService {
         checkOffice(office);
 
         dao.save(office);
+
+        OfficeView officeView = new OfficeView();
+        officeView.id = office.getId();
+
+        return officeView;
     }
 
     /**
@@ -163,20 +168,22 @@ public class OfficeServiceImpl implements OfficeService {
 
     private void checkOffice(Office office) {
         String name = office.getName();
+        String address = office.getAddress();
         String phone = office.getPhone();
-        Boolean isActive = office.isActive();
 
         if (Strings.isNullOrEmpty(name)) {
             throw new IllegalArgumentException("officeName is wrong");
         }
 
-        if ((phone == null) || (!checkPhone(phone))) {
+        if (Strings.isNullOrEmpty(address)) {
+            throw new IllegalArgumentException("officeAddress is wrong");
+        }
+
+        if ((phone != null) && (!checkPhone(phone))) {
             throw new IllegalArgumentException("officePhone is wrong");
         }
 
-        if (isActive == null) {
-            throw new IllegalArgumentException("officeIsActive is wrong");
-        }
+
 
     }
 

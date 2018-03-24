@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 public class OfficeView {
 
     public Long id;
+    public Long orgId;
     public String name;
     public String address;
     public String phone;
@@ -16,22 +17,15 @@ public class OfficeView {
     public OfficeView() {
     }
 
-    public OfficeView(Long id, String name, String address, String phone, Boolean isActive) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
-
     @Override
     public String toString() {
-        return "{" +
-                "id:" + id +
-                ", name:'" + name + '\'' +
-                ", address:'" + address + '\'' +
-                ", phone:'" + phone + '\'' +
-                ", isActive:" + isActive +
+        return "OfficeView{" +
+                "id=" + id +
+                ", orgId=" + orgId +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }

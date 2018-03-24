@@ -21,11 +21,11 @@ public interface OfficeController {
 
 
     /**
-     * save Office
+     * create Office
      *
      * @param office
      */
-    void saveOffice(@RequestBody OfficeToSave office);
+    OfficeView createOffice(@RequestBody OfficeToSave office);
 
     /**
      * update Office

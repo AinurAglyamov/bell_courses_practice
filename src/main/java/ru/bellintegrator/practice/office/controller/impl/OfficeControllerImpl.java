@@ -36,10 +36,10 @@ public class OfficeControllerImpl implements OfficeController{
     }
 
     @Override
-    @ApiOperation(value = "add Office", httpMethod = "POST")
-    @PostMapping("/save")
-    public void saveOffice(@RequestBody OfficeToSave office) {
-        officeService.save(office);
+    @ApiOperation(value = "create Office", httpMethod = "POST")
+    @PostMapping("/create")
+    public OfficeView createOffice(@RequestBody OfficeToSave office) {
+        return officeService.save(office);
     }
 
     @Override
