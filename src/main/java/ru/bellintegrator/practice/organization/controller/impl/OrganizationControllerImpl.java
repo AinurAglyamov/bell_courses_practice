@@ -35,10 +35,10 @@ public class OrganizationControllerImpl implements OrganizationController{
     }
 
     @Override
-    @ApiOperation(value = "add Organization", httpMethod = "POST")
+    @ApiOperation(value = "create Organization", httpMethod = "POST")
     @PostMapping("/create")
-    public void saveOrganization(@RequestBody OrganizationToSave organization) {
-        organizationService.save(organization);
+    public OrganizationView createOrganization(@RequestBody OrganizationToSave organization) {
+        return organizationService.save(organization);
     }
 
     @Override

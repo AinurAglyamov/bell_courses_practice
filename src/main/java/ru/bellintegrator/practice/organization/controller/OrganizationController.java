@@ -19,11 +19,11 @@ public interface OrganizationController {
     OrganizationView organizationById(@PathVariable Long id);
 
     /**
-     * save Organization
+     * create Organization
      *
      * @param organization
      */
-    void saveOrganization(@RequestBody OrganizationToSave organization);
+    OrganizationView createOrganization(@RequestBody OrganizationToSave organization);
 
     /**
      * update Organization

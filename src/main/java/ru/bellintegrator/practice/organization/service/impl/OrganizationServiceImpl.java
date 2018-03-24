@@ -69,7 +69,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional
-    public void save(OrganizationToSave view) {
+    public OrganizationView save(OrganizationToSave view) {
         log.info(view.toString());
 
         Organization organization = new Organization();
@@ -86,6 +86,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         checkOrganization(organization);
 
         organizationDao.save(organization);
+
+        OrganizationView organizationView = new OrganizationView();
+        organizationView.id = organization.getId();
+
+        return organizationView;
 
     }
 

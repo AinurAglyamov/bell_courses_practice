@@ -23,9 +23,9 @@ public interface OrganizationService {
      * save Organization
      *
      * @param view
-     *
+     * @return
      */
-    void save(OrganizationToSave view);
+    OrganizationView save(OrganizationToSave view);
 
     /**
      *
