@@ -7,6 +7,7 @@ import ru.bellintegrator.practice.employee.model.Employee;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
+import ru.bellintegrator.practice.office.view.OfficeView;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface EmployeeService {
      *
      * @param view
      */
-    void save(EmployeeToSave view);
+    EmployeeView save(EmployeeToSave view);
 
     /**
      *

@@ -38,10 +38,10 @@ public class EmployeeControllerImpl implements EmployeeController {
     }
 
     @Override
-    @ApiOperation(value = "save Employee", httpMethod = "POST")
-    @PostMapping("/save")
-    public void saveEmployee(@RequestBody EmployeeToSave employee) {
-        employeeService.save(employee);
+    @ApiOperation(value = "create Employee", httpMethod = "POST")
+    @PostMapping("/create")
+    public EmployeeView createEmployee(@RequestBody EmployeeToSave employee) {
+        return employeeService.save(employee);
     }
 
     @Override

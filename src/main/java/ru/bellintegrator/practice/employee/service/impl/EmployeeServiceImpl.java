@@ -13,6 +13,7 @@ import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
+import ru.bellintegrator.practice.office.view.OfficeView;
 import ru.bellintegrator.practice.reference.dao.CountryDao;
 import ru.bellintegrator.practice.reference.dao.DocumentTypeDao;
 
@@ -53,11 +54,16 @@ public class EmployeeServiceImpl implements EmployeeService{
         Employee employee = employeeDao.loadById(id);
 
         EmployeeView view = new EmployeeView();
+        view.id = employee.getId();
+        view.officeId = employee.getOffice().getId();
         view.firstName = employee.getFirstName();
         view.secondName = employee.getSecondName();
         view.middleName = employee.getMiddleName();
         view.position = employee.getPosition();
+        view.salary = employee.getSalary();
+        view.registrationDate = employee.getRegistrationDate();
         view.phone = employee.getPhone();
+        view.docCode = employee.getDocumentType().getCode();
         view.docName = employee.getDocumentType().getName();
         view.docNumber = employee.getDocNumber();
         view.docDate = employee.getDocDate();
@@ -75,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService{
      */
     @Override
     @Transactional
-    public void save(EmployeeToSave view) {
+    public EmployeeView save(EmployeeToSave view) {
         log.info("Employee to save: " + view);
 
         if(view.officeId == null) {
@@ -98,6 +104,11 @@ public class EmployeeServiceImpl implements EmployeeService{
         checkEmployee(employee);
 
         employeeDao.save(employee);
+
+        EmployeeView employeeView = new EmployeeView();
+        employeeView.id = employee.getId();
+
+        return employeeView;
     }
 
     /**

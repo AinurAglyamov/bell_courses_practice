@@ -21,11 +21,11 @@ public interface EmployeeController {
 
     /**
      *
-     * save Employee
+     * create Employee
      *
      * @param employee
      */
-    void saveEmployee(@RequestBody EmployeeToSave employee);
+    EmployeeView createEmployee(@RequestBody EmployeeToSave employee);
 
     /**
      *

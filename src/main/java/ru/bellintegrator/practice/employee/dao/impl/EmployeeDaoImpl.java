@@ -61,6 +61,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
         employeeToUpdate.setSecondName(employee.getSecondName());
         employeeToUpdate.setMiddleName(employee.getMiddleName());
         employeeToUpdate.setPosition(employee.getPosition());
+        employeeToUpdate.setSalary(employee.getSalary());
+        employeeToUpdate.setRegistrationDate(employee.getRegistrationDate());
         employeeToUpdate.setPhone(employee.getPhone());
         employeeToUpdate.setDocumentType(employee.getDocumentType());
         employeeToUpdate.setDocNumber(employee.getDocNumber());
@@ -89,7 +91,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         String secondName = employee.getSecondName();
         String middleName = employee.getMiddleName();
         String position = employee.getPosition();
-        Integer docCode = employee.getDocumentType().getCode();
         Integer citizenshipCode = employee.getCountry().getCode();
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -122,11 +123,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
         if(!Strings.isNullOrEmpty(position)) {
             Predicate p = builder.equal(employeeRoot.get("position"), position);
-            criteria = builder.and(criteria, p);
-        }
-
-        if(docCode != null) {
-            Predicate p = builder.equal(employeeRoot.get("documentType").get("code"), docCode);
             criteria = builder.and(criteria, p);
         }
 
