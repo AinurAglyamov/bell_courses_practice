@@ -2,7 +2,10 @@ package ru.bellintegrator.practice.response.error;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import ru.bellintegrator.practice.response.view.ResponseView;
@@ -24,12 +27,13 @@ public class ExceptionHandlerController {
         return view;
     }
 
-    /*@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseView MethodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException e) {
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseView badRequestHandler(HttpMessageNotReadableException e) {
         log.error(null, e);
 
         ResponseView view = new ResponseView();
-        view.error = "Передано не число";
+        view.error = e.getMessage();
         return view;
-    }*/
+    }/**/
 }
