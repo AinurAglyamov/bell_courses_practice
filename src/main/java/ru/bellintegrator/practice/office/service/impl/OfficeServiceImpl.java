@@ -184,23 +184,18 @@ public class OfficeServiceImpl implements OfficeService {
             throw new IllegalArgumentException("officePhone is wrong");
         }
 
-
-
     }
 
     private void checkFilterParams(OfficeFilter filter) {
-        /*if (filter.orgId == null) {
-            throw new IllegalArgumentException("orgId is null");
-        }*/
         Long orgId = filter.orgId;
         String name = filter.name;
         String phone = filter.phone;
         Boolean isActive = filter.isActive;
 
         if((orgId != null) || (!Strings.isNullOrEmpty(name)) || (!Strings.isNullOrEmpty(phone)) || (isActive != null)){
-            if(orgId == null){
-                throw new IllegalArgumentException("orgId is null");
-            }
+
+            orgDao.loadById(orgId);
+
             if((!Strings.isNullOrEmpty(phone)) && (!checkPhone(phone))){
                 throw new IllegalArgumentException("officePhone is wrong");
             }

@@ -99,7 +99,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setDocumentType(documentTypeDao.findByCode(view.docCode));
         employee.setDocNumber(view.docNumber);
         employee.setDocDate(view.docDate);
-
         employee.setCountry(countryDao.findByCode(view.citizenshipCode));
 
         officeDao.loadById(view.officeId).addEmployee(employee);
@@ -133,11 +132,13 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setSecondName(view.secondName);
         employee.setMiddleName(view.middleName);
         employee.setPosition(view.position);
+        employee.setSalary(view.salary);
+        employee.setRegistrationDate(view.registrationDate);
         employee.setPhone(view.phone);
+        employee.setDocumentType(documentTypeDao.findByCode(view.docCode));
         employee.setDocNumber(view.docNumber);
         employee.setDocDate(view.docDate);
-        employee.setDocumentType(documentTypeDao.findByNameAndCode(view.docCode, view.docName));
-        employee.setCountry(countryDao.findByCodeAndName(view.citizenshipCode, view.citizenshipName));
+        employee.setCountry(countryDao.findByCode(view.citizenshipCode));
 
         checkEmployee(employee);
 
@@ -172,7 +173,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setSecondName(view.secondName);
         employee.setMiddleName(view.middleName);
         employee.setPosition(view.position);
-        employee.getDocumentType().setCode(view.docCode);
         employee.getCountry().setCode(view.citizenshipCode);
 
         List<Employee> employees = employeeDao.list(employee);
@@ -181,10 +181,9 @@ public class EmployeeServiceImpl implements EmployeeService{
             EmployeeView employeeView = new EmployeeView();
 
             employeeView.id = e.getId();
-            employeeView.firstName = e.getFirstName();
-            employeeView.secondName = e.getSecondName();
-            employeeView.middleName = e.getMiddleName();
+            employeeView.fullName = e.getFullName();
             employeeView.position = e.getPosition();
+            employeeView.officeName = e.getOffice().getName();
 
             log.info(employeeView.toString());
 
@@ -231,22 +230,24 @@ public class EmployeeServiceImpl implements EmployeeService{
         String firstName = filter.firstName;
         String secondName = filter.secondName;
         String middleName = filter.middleName;
+        String position = filter.position;
+        Integer citizenshipCode = filter.citizenshipCode;
 
-        if(officeId != null) {
+        if((officeId != null) || (!Strings.isNullOrEmpty(firstName)) || (!Strings.isNullOrEmpty(middleName)) || (!Strings.isNullOrEmpty(position)) || (citizenshipCode != null)) {
             officeDao.loadById(officeId);
-            //throw new IllegalArgumentException("officeId is null");
-        }/**/
 
-        if((firstName != null) && (!checkName(firstName))) {
-            throw new IllegalArgumentException("firstName is wrong");
-        }
+            if((firstName != null) && (!checkName(firstName))) {
+                throw new IllegalArgumentException("firstName is wrong");
+            }
 
-        if((secondName != null) && (!checkName(secondName))) {
-            throw new IllegalArgumentException("firstName is wrong");
-        }
+            if((secondName != null) && (!checkName(secondName))) {
+                throw new IllegalArgumentException("firstName is wrong");
+            }
 
-        if((middleName != null) && (!checkName(middleName))) {
-            throw new IllegalArgumentException("firstName is wrong");
+            if((middleName != null) && (!checkName(middleName))) {
+                throw new IllegalArgumentException("firstName is wrong");
+            }
+
         }
 
     }

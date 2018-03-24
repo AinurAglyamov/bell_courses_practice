@@ -52,9 +52,9 @@ public class EmployeeControllerImpl implements EmployeeController {
     }
 
     @Override
-    @ApiOperation(value = "delete Employee", httpMethod = "POST")
-    @PostMapping("/delete")
-    public void deleteEmployee(@RequestBody Long id) {
+    @ApiOperation(value = "delete Employee", httpMethod = "GET")
+    @GetMapping("/delete/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
         employeeService.delete(id);
     }
 

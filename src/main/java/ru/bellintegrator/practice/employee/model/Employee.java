@@ -185,4 +185,8 @@ public class Employee {
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    public String getFullName() {
+        return secondName + " " + firstName + " " + middleName;
+    }
 }

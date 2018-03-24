@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS Office (
 
 CREATE TABLE IF NOT EXISTS Employee (
   id                INTEGER PRIMARY KEY AUTO_INCREMENT,
-  first_name        VARCHAR(50) NOT NULL,
   second_name       VARCHAR(50) NOT NULL,
+  first_name        VARCHAR(50) NOT NULL,
   middle_name       VARCHAR(50),
   position          VARCHAR(50),
   salary            DECIMAL(8, 2),

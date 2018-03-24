@@ -41,7 +41,7 @@ public interface EmployeeController {
      *
      * @param id
      */
-    void deleteEmployee(@RequestBody Long id);
+    void deleteEmployee(@PathVariable Long id);
 
     /**
      *

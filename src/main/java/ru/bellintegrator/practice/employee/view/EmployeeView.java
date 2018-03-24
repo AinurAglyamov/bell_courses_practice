@@ -23,6 +23,8 @@ public class EmployeeView {
     public Date docDate;
     public Integer citizenshipCode;
     public String citizenshipName;
+    public String fullName;
+    public String officeName;
 
     public EmployeeView() {
     }
@@ -45,6 +47,8 @@ public class EmployeeView {
                 ", docDate=" + docDate +
                 ", citizenshipCode=" + citizenshipCode +
                 ", citizenshipName='" + citizenshipName + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", officeName='" + officeName + '\'' +
                 '}';
     }
 }
