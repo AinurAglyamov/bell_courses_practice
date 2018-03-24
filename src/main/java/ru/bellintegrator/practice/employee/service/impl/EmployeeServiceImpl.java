@@ -63,7 +63,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         view.docDate = employee.getDocDate();
         view.citizenshipName = employee.getCountry().getName();
         view.citizenshipCode = employee.getCountry().getCode();
-        view.isIdentified = employee.isIdentified();
 
         log.info(view.toString());
 
@@ -93,7 +92,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setDocDate(view.docDate);
         employee.setDocumentType(documentTypeDao.findByNameAndCode(view.docCode, view.docName));
         employee.setCountry(countryDao.findByCodeAndName(view.citizenshipCode, view.citizenshipName));
-        employee.setIdentified(view.isIdentified);
 
         officeDao.loadById(view.officeId).addEmployee(employee);
 
@@ -126,7 +124,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setDocDate(view.docDate);
         employee.setDocumentType(documentTypeDao.findByNameAndCode(view.docCode, view.docName));
         employee.setCountry(countryDao.findByCodeAndName(view.citizenshipCode, view.citizenshipName));
-        employee.setIdentified(view.isIdentified);
 
         checkEmployee(employee);
 
@@ -189,7 +186,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         String middleName = employee.getMiddleName();
         String position = employee.getPosition();
         String phone = employee.getPhone();
-        Boolean isIdentified = employee.isIdentified();
 
         if((firstName == null) || (!checkName(firstName))){
             throw new IllegalArgumentException("employeeFirstName is wrong");
@@ -205,9 +201,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
         if((phone == null) || (!checkPhone(phone))) {
             throw new IllegalArgumentException("employeePhone is wrong");
-        }
-        if(isIdentified == null) {
-            throw new IllegalArgumentException("employeeIsIdentified is null");
         }
 
     }

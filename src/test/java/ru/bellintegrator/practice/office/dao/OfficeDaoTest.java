@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
+import ru.bellintegrator.practice.office.error.OfficeNotFoundException;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import ru.bellintegrator.practice.organization.model.Organization;
@@ -100,7 +101,7 @@ public class OfficeDaoTest {
         assertEquals(newAddress, updatedOffice.getAddress());
     }
 
-    @Test
+    @Test(expected = OfficeNotFoundException.class)
     public void testDelete() {
         officeDao.save(office);
 
@@ -108,7 +109,7 @@ public class OfficeDaoTest {
 
         officeDao.delete(id);
 
-        assertNull(officeDao.loadById(id));
+        officeDao.loadById(id);
 
     }
 

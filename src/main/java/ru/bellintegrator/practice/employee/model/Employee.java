@@ -5,6 +5,7 @@ import ru.bellintegrator.practice.reference.model.Country;
 import ru.bellintegrator.practice.reference.model.DocumentType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -25,11 +26,13 @@ public class Employee {
     @Column(nullable = false)
     private String position;
 
-    @Column(nullable = false)
-    private String phone;
+    private BigDecimal salary;
+
+    @Temporal(TemporalType.DATE)
+    private Date registrationDate;
 
     @Column(nullable = false)
-    private Boolean isIdentified;
+    private String phone;
 
     private String docNumber;
 
@@ -55,16 +58,19 @@ public class Employee {
     public Employee() {
     }
 
-
-    public Employee(String firstName, String secondName, String middleName, String position, String phone, Boolean isIdentified, String docNumber, Date docDate) {
+    public Employee(String firstName, String secondName, String middleName, String position, BigDecimal salary, Date registrationDate, String phone, String docNumber, Date docDate, Office office, DocumentType documentType, Country country) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.middleName = middleName;
         this.position = position;
+        this.salary = salary;
+        this.registrationDate = registrationDate;
         this.phone = phone;
-        this.isIdentified = true;
         this.docNumber = docNumber;
         this.docDate = docDate;
+        this.office = office;
+        this.documentType = documentType;
+        this.country = country;
     }
 
     public Long getId() {
@@ -115,12 +121,20 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Boolean isIdentified() {
-        return isIdentified;
+    public BigDecimal getSalary() {
+        return salary;
     }
 
-    public void setIdentified(Boolean identified) {
-        isIdentified = identified;
+    public void setSalary(BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public String getDocNumber() {

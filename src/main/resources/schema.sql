@@ -37,22 +37,21 @@ CREATE TABLE IF NOT EXISTS Office (
   FOREIGN KEY (org_id) REFERENCES Organization (id)
 );
 
-
-
 CREATE TABLE IF NOT EXISTS Employee (
-  id            INTEGER PRIMARY KEY AUTO_INCREMENT,
-  first_name    VARCHAR(50) NOT NULL,
-  second_name   VARCHAR(50) NOT NULL,
-  middle_name   VARCHAR(50),
-  position      VARCHAR(50) NOT NULL,
-  phone         VARCHAR(50) NOT NULL,
-  is_identified BOOLEAN     NOT NULL,
-  doc_number    VARCHAR(50),
-  doc_date      DATE,
-  office_id     INTEGER,
-  doc_type_id   INTEGER,
-  country_id    INTEGER,
-  version       INTEGER     NOT NULL,
+  id                INTEGER PRIMARY KEY AUTO_INCREMENT,
+  first_name        VARCHAR(50) NOT NULL,
+  second_name       VARCHAR(50) NOT NULL,
+  middle_name       VARCHAR(50),
+  position          VARCHAR(50),
+  salary            DECIMAL(8, 2),
+  registration_date DATE,
+  phone             VARCHAR(50),
+  doc_number        VARCHAR(50) NOT NULL,
+  doc_date          DATE        NOT NULL,
+  office_id         INTEGER,
+  doc_type_id       INTEGER,
+  country_id        INTEGER,
+  version           INTEGER     NOT NULL,
   FOREIGN KEY (office_id) REFERENCES Office (id),
   FOREIGN KEY (doc_type_id) REFERENCES Document_Type (id),
   FOREIGN KEY (country_id) REFERENCES Country (id)

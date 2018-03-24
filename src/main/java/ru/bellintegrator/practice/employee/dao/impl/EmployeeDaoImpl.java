@@ -66,7 +66,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
         employeeToUpdate.setDocNumber(employee.getDocNumber());
         employeeToUpdate.setDocDate(employee.getDocDate());
         employeeToUpdate.setCountry(employee.getCountry());
-        employeeToUpdate.setIdentified(employee.isIdentified());
 
     }
 
