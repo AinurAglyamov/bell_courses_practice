@@ -93,11 +93,14 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setSecondName(view.secondName);
         employee.setMiddleName(view.middleName);
         employee.setPosition(view.position);
+        employee.setSalary(view.salary);
+        employee.setRegistrationDate(view.registrationDate);
         employee.setPhone(view.phone);
+        employee.setDocumentType(documentTypeDao.findByCode(view.docCode));
         employee.setDocNumber(view.docNumber);
         employee.setDocDate(view.docDate);
-        employee.setDocumentType(documentTypeDao.findByNameAndCode(view.docCode, view.docName));
-        employee.setCountry(countryDao.findByCodeAndName(view.citizenshipCode, view.citizenshipName));
+
+        employee.setCountry(countryDao.findByCode(view.citizenshipCode));
 
         officeDao.loadById(view.officeId).addEmployee(employee);
 
@@ -195,8 +198,9 @@ public class EmployeeServiceImpl implements EmployeeService{
         String firstName = employee.getFirstName();
         String secondName = employee.getSecondName();
         String middleName = employee.getMiddleName();
-        String position = employee.getPosition();
         String phone = employee.getPhone();
+        String docNumber = employee.getDocNumber();
+        Date docDate = employee.getDocDate();
 
         if((firstName == null) || (!checkName(firstName))){
             throw new IllegalArgumentException("employeeFirstName is wrong");
@@ -204,14 +208,20 @@ public class EmployeeServiceImpl implements EmployeeService{
         if((secondName == null) || (!checkName(secondName))){
             throw new IllegalArgumentException("employeeSecondName is wrong");
         }
-        if((middleName == null) || (!checkName(middleName))){
+        if((middleName != null) && (!checkName(middleName))){
             throw new IllegalArgumentException("employeeMiddleName is wrong");
         }
-        if(Strings.isNullOrEmpty(position)){
-            throw new IllegalArgumentException("employeePosition is wrong");
-        }
-        if((phone == null) || (!checkPhone(phone))) {
+
+        if((phone != null) && (!checkPhone(phone))) {
             throw new IllegalArgumentException("employeePhone is wrong");
+        }
+
+        if(Strings.isNullOrEmpty(docNumber)){
+            throw new IllegalArgumentException("docNumber is wrong");
+        }
+
+        if(docDate == null) {
+            throw new IllegalArgumentException("docDate is wrong");
         }
 
     }

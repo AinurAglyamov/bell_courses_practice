@@ -30,14 +30,14 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
 
     @Override
     public DocumentType findByCode(Integer code) {
-        TypedQuery<DocumentType> query = em.createNamedQuery("findByCode", DocumentType.class);
+        TypedQuery<DocumentType> query = em.createNamedQuery("findDocTypeByCode", DocumentType.class);
         query.setParameter("code", code);
         return query.getSingleResult();
     }
 
     @Override
     public DocumentType findByName(String name) {
-        TypedQuery<DocumentType> query = em.createNamedQuery("findByName", DocumentType.class);
+        TypedQuery<DocumentType> query = em.createNamedQuery("findDocTypeByName", DocumentType.class);
         query.setParameter("name", name);
         return query.getSingleResult();
     }
