@@ -1,6 +1,8 @@
 package ru.bellintegrator.practice.office.controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.bellintegrator.practice.office.view.OfficeFilter;
 import ru.bellintegrator.practice.office.view.OfficeToSave;
 import ru.bellintegrator.practice.office.view.OfficeView;
@@ -35,11 +37,12 @@ public interface OfficeController {
     void updateOffice(@RequestBody OfficeView office);
 
     /**
+     *
      * delete Office
      *
      * @param id
      */
-    void deleteOffice(@RequestBody Long id);
+    void deleteOffice(Long id);
 
     /**
      *

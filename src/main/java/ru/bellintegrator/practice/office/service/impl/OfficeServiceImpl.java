@@ -157,6 +157,7 @@ public class OfficeServiceImpl implements OfficeService {
             officeView.id = o.getId();
             officeView.name = o.getName();
             officeView.isActive = o.isActive();
+            officeView.organizationName = o.getOrganization().getName();
 
             log.info(officeView.toString());
 
@@ -191,13 +192,18 @@ public class OfficeServiceImpl implements OfficeService {
         /*if (filter.orgId == null) {
             throw new IllegalArgumentException("orgId is null");
         }*/
+        Long orgId = filter.orgId;
+        String name = filter.name;
+        String phone = filter.phone;
+        Boolean isActive = filter.isActive;
 
-        if(filter.orgId != null) {
-            orgDao.loadById(filter.orgId);
-        }
-
-        if((filter.phone != null) && (!checkPhone(filter.phone))) {
-            throw new IllegalArgumentException("officePhone is wrong");
+        if((orgId != null) || (!Strings.isNullOrEmpty(name)) || (!Strings.isNullOrEmpty(phone)) || (isActive != null)){
+            if(orgId == null){
+                throw new IllegalArgumentException("orgId is null");
+            }
+            if((!Strings.isNullOrEmpty(phone)) && (!checkPhone(phone))){
+                throw new IllegalArgumentException("officePhone is wrong");
+            }
         }
     }
 

@@ -13,6 +13,7 @@ public class OfficeView {
     public String address;
     public String phone;
     public Boolean isActive;
+    public String organizationName;
 
     public OfficeView() {
     }
@@ -26,6 +27,7 @@ public class OfficeView {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", isActive=" + isActive +
+                ", organizationName='" + organizationName + '\'' +
                 '}';
     }
 }

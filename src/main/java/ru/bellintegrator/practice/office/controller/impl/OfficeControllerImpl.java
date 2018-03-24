@@ -50,9 +50,9 @@ public class OfficeControllerImpl implements OfficeController{
     }
 
     @Override
-    @ApiOperation(value = "delete Office", httpMethod = "POST")
-    @PostMapping("/delete")
-    public void deleteOffice(@RequestBody Long id) {
+    @ApiOperation(value = "delete Office", httpMethod = "GET")
+    @GetMapping("/delete/{id}")
+    public void deleteOffice(@PathVariable Long id) {
         officeService.delete(id);
     }
 
