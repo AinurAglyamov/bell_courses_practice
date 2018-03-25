@@ -11,12 +11,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
+import ru.bellintegrator.practice.employee.error.EmployeeNotFoundException;
 import ru.bellintegrator.practice.employee.model.Employee;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.model.Office;
+import ru.bellintegrator.practice.reference.dao.CountryDao;
+import ru.bellintegrator.practice.reference.dao.DocumentTypeDao;
 import ru.bellintegrator.practice.reference.model.Country;
 import ru.bellintegrator.practice.reference.model.DocumentType;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +39,12 @@ public class EmployeeDaoTest {
     @Autowired
     private EmployeeDao employeeDao;
 
+    @Autowired
+    private DocumentTypeDao documentTypeDao;
+
+    @Autowired
+    private CountryDao countryDao;
+
     private Office office;
     private Employee employee;
     private DocumentType documentType;
@@ -50,7 +60,7 @@ public class EmployeeDaoTest {
         employee.setPosition("Инженер");
         employee.setPhone("+7 (999) 120-33-78");
         employee.setDocNumber("09an987656");
-        employee.setIdentified(true);
+        employee.setDocDate(new Date(1521809079));
 
         office = new Office();
 
@@ -59,8 +69,8 @@ public class EmployeeDaoTest {
         office.setPhone("+7 (843) 511-72-25");
         office.setActive(true);
 
-        documentType = new DocumentType(10, "Паспорт гражданина Грузии");
-        country = new Country(268,"Грузия");
+        documentType = documentTypeDao.findByCode(12);
+        country = countryDao.findByCode(268);
 
         employee.setDocumentType(documentType);
         employee.setCountry(country);
@@ -98,27 +108,23 @@ public class EmployeeDaoTest {
     public void testUpdate() {
         Long id = employee.getId();
         String newPosition = "Ведущий инженер";
-        String newCitizenshipName = "Республика Грузия";
 
         Employee newEmployee = employeeDao.loadById(id);
         newEmployee.setPosition(newPosition);
-        newEmployee.getCountry().setName(newCitizenshipName);
-
         employeeDao.update(newEmployee);
 
         Employee updatedEmployee = employeeDao.loadById(id);
 
         assertEquals(newPosition, updatedEmployee.getPosition());
-        assertEquals(newCitizenshipName, updatedEmployee.getCountry().getName());
     }
 
-    @Test
+    @Test(expected = EmployeeNotFoundException.class)
     public void testDelete() {
         Long id = employee.getId();
 
         employeeDao.delete(id);
 
-        assertNull(employeeDao.loadById(id));
+        employeeDao.loadById(id);
     }
 
     @Test
@@ -129,7 +135,6 @@ public class EmployeeDaoTest {
         employee1.setOffice(office);
         employee1.setFirstName("Валерий");
         employee1.setSecondName("Меладзе");
-        employee1.getCountry().setCode(268);
 
         List<Employee> employees = employeeDao.list(employee1);
 
@@ -137,9 +142,8 @@ public class EmployeeDaoTest {
 
         Employee employee2 = new Employee();
         employee2.setOffice(office);
-        employee2.setFirstName("Валерий");
+        employee2.setFirstName("Константин");
         employee2.setSecondName("Меладзе");
-        employee2.getCountry().setCode(267);
 
         assertTrue(employeeDao.list(employee2).isEmpty());
 

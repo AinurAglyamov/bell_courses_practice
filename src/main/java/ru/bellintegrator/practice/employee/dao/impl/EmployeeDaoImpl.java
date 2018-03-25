@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.employee.dao.impl;
 
 import com.google.common.base.Strings;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.employee.dao.EmployeeDao;
 import ru.bellintegrator.practice.employee.error.EmployeeNotFoundException;
