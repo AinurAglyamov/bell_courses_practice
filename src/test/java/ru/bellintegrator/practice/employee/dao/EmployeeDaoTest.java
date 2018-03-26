@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.Application;
 import ru.bellintegrator.practice.employee.error.EmployeeNotFoundException;
 import ru.bellintegrator.practice.employee.model.Employee;
+import ru.bellintegrator.practice.employee.view.report.ReportFilter;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.model.Office;
 import ru.bellintegrator.practice.reference.dao.CountryDao;
@@ -146,6 +147,45 @@ public class EmployeeDaoTest {
         employee2.setSecondName("Меладзе");
 
         assertTrue(employeeDao.list(employee2).isEmpty());
+
+    }
+
+    @Test
+    public void testLoadBySalaryAndDate(){
+        Employee employee1 = new Employee();
+        employee1.setFirstName("Влад");
+        employee1.setSecondName("Александров");
+        employee1.setDocNumber("123a443222");
+        employee1.setDocDate(new Date(1431510513)); //2015-05-13
+        employee1.setSalary(new BigDecimal(124000));
+        employee1.setRegistrationDate(new Date(1521971313)); //2018-03-25
+
+        Employee employee2 = new Employee();
+        employee2.setFirstName("Валера");
+        employee2.setSecondName("Владов");
+        employee2.setDocNumber("123a443222");
+        employee2.setDocDate(new Date(1403689713)); //2014-06-25
+        employee2.setSalary(new BigDecimal(124500));
+        employee2.setRegistrationDate(new Date(1522057713)); //2018-03-26
+
+        office.addEmployee(employee1);
+        office.addEmployee(employee2);
+
+        ReportFilter filter = new ReportFilter();
+        filter.dateFrom = new Date(1521884913); //2018-03-24
+        filter.dateTo = new Date(1522144113); //2018-03-27
+        filter.salaryFrom = new BigDecimal(123000);
+        filter.salaryTo = new BigDecimal(134600);
+
+        List<Employee> employees = employeeDao.loadBySalaryAndRegDate(filter);
+
+        System.out.println(employees);
+
+        assertFalse(employees.isEmpty());
+
+        assertEquals(2, employees.size());
+
+
 
     }
 }

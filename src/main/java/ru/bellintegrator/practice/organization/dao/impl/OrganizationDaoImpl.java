@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.organization.dao.impl;
 
 import com.google.common.base.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.organization.dao.OrganizationDao;
 import ru.bellintegrator.practice.organization.error.OrganizationNotFoundException;
@@ -21,6 +22,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
 
     private final EntityManager em;
 
+    @Autowired
     public OrganizationDaoImpl(EntityManager em) {
         this.em = em;
     }

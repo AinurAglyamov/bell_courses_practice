@@ -189,4 +189,23 @@ public class Employee {
     public String getFullName() {
         return secondName + " " + firstName + " " + middleName;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                ", registrationDate=" + registrationDate +
+                ", phone='" + phone + '\'' +
+                ", docNumber='" + docNumber + '\'' +
+                ", docDate=" + docDate +
+                ", office=" + office +
+                ", documentType=" + documentType +
+                ", country=" + country +
+                '}';
+    }
 }

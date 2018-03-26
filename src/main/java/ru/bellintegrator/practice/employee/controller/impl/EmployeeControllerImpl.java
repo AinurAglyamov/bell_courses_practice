@@ -8,6 +8,8 @@ import ru.bellintegrator.practice.employee.service.EmployeeService;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
+import ru.bellintegrator.practice.employee.view.report.ReportFilter;
+import ru.bellintegrator.practice.employee.view.report.ReportView;
 
 import java.util.List;
 
@@ -63,5 +65,12 @@ public class EmployeeControllerImpl implements EmployeeController {
     @PostMapping("/list")
     public List<EmployeeView> list(@RequestBody EmployeeFilter employee) {
         return employeeService.list(employee);
+    }
+
+    @Override
+    @ApiOperation(value = "do report", httpMethod = "POST")
+    @PostMapping("/report")
+    public ReportView report(@RequestBody ReportFilter filter) {
+        return employeeService.report(filter);
     }
 }

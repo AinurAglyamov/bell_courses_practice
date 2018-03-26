@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.reference.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.reference.dao.DocumentTypeDao;
 import ru.bellintegrator.practice.reference.error.DocumentTypeNotFoundException;
@@ -15,6 +16,7 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
 
     private EntityManager em;
 
+    @Autowired
     public DocumentTypeDaoImpl(EntityManager em) {
         this.em = em;
     }

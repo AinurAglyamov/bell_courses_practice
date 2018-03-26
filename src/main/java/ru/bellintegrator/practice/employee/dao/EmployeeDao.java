@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.employee.dao;
 
 import ru.bellintegrator.practice.employee.model.Employee;
+import ru.bellintegrator.practice.employee.view.report.ReportFilter;
 
 import java.util.List;
 
@@ -47,4 +48,13 @@ public interface EmployeeDao {
      * @return Employee list
      */
     List<Employee> list(Employee employee);
+
+    /**
+     *
+     * get Employee list by salary and registration date
+     *
+     * @param filter
+     * @return Employee list
+     */
+    List<Employee> loadBySalaryAndRegDate(ReportFilter filter);
 }

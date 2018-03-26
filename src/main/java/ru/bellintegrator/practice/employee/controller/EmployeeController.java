@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
+import ru.bellintegrator.practice.employee.view.report.ReportFilter;
+import ru.bellintegrator.practice.employee.view.report.ReportView;
 
 import java.util.List;
 
@@ -51,4 +53,12 @@ public interface EmployeeController {
      * @return JSON employees value
      */
     List<EmployeeView> list(@RequestBody EmployeeFilter employee);
+
+    /**
+     *
+     * do report on employees
+     *
+     * @return
+     */
+    ReportView report(@RequestBody ReportFilter filter);
 }

@@ -12,13 +12,16 @@ import ru.bellintegrator.practice.employee.service.EmployeeService;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
+import ru.bellintegrator.practice.employee.view.report.ReportEmployee;
+import ru.bellintegrator.practice.employee.view.report.ReportFilter;
+import ru.bellintegrator.practice.employee.view.report.ReportView;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.view.OfficeView;
 import ru.bellintegrator.practice.reference.dao.CountryDao;
 import ru.bellintegrator.practice.reference.dao.DocumentTypeDao;
 
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -193,6 +196,45 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employees.stream().map(mapEmployee).collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public ReportView report(ReportFilter view) {
+        log.info(view.toString());
+
+        checkReportFilterParams(view);
+
+        List<Employee> employees = employeeDao.loadBySalaryAndRegDate(view);
+        List<ReportEmployee> reportEmployees = new ArrayList<>(employees.size());
+        Set<String> organizations = new HashSet<>();
+        Set<String> offices = new HashSet<>();
+
+        for(Employee employee : employees){
+            ReportEmployee reportEmployee = new ReportEmployee();
+            reportEmployee.orgName = employee.getOffice().getOrganization().getName();
+            reportEmployee.officeName = employee.getOffice().getName();
+            reportEmployee.employeeName = employee.getFullName();
+            reportEmployee.salary = employee.getSalary();
+            reportEmployee.registerDate = employee.getRegistrationDate();
+
+            reportEmployees.add(reportEmployee);
+            organizations.add(employee.getOffice().getOrganization().getName());
+            offices.add(employee.getOffice().getName());
+        }
+
+        ReportView reportView = new ReportView();
+        reportView.organizationsCount = organizations.size();
+        reportView.officesCount = offices.size();
+        reportView.employeesCount = employees.size();
+        reportView.employees = reportEmployees;
+
+        return reportView;
+
+    }
+
+
     private void checkEmployee(Employee employee) {
         String firstName = employee.getFirstName();
         String secondName = employee.getSecondName();
@@ -251,6 +293,34 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
 
     }
+
+    private void checkReportFilterParams(ReportFilter filter){
+
+        Date dateFrom = filter.dateFrom;
+        Date dateTo = filter.dateTo;
+        BigDecimal salaryFrom = filter.salaryFrom;
+        BigDecimal salaryTo = filter.salaryTo;
+
+        if(dateFrom == null){
+            throw new IllegalArgumentException("dateFrom is wrong");
+        }
+
+        if((dateTo == null) || (dateTo.compareTo(dateFrom) < 0)){
+            throw new IllegalArgumentException("dateTo is wrong");
+        }
+
+        if(salaryFrom == null) {
+            throw new IllegalArgumentException("salaryFrom is wrong");
+        }
+
+        if((salaryTo == null) || (salaryTo.compareTo(salaryFrom) < 0)){
+            throw new IllegalArgumentException("salaryTo is wrong");
+        }
+
+
+
+    }
+
 
     private boolean checkName(String name) {
          return name.matches("[A-zА-я]+");

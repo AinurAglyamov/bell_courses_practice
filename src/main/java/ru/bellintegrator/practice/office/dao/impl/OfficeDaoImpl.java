@@ -1,6 +1,7 @@
 package ru.bellintegrator.practice.office.dao.impl;
 
 import com.google.common.base.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.error.OfficeNotFoundException;
@@ -23,6 +24,7 @@ public class OfficeDaoImpl implements OfficeDao {
 
     private final EntityManager em;
 
+    @Autowired
     public OfficeDaoImpl(EntityManager em) {
         this.em = em;
     }

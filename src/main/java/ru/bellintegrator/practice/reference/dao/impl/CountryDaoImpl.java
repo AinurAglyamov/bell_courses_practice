@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.reference.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.reference.dao.CountryDao;
 import ru.bellintegrator.practice.reference.error.CountryNotFoundException;
@@ -15,6 +16,7 @@ public class CountryDaoImpl implements CountryDao {
 
     private EntityManager em;
 
+    @Autowired
     public CountryDaoImpl(EntityManager em) {
         this.em = em;
     }

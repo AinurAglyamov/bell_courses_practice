@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.user.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.user.dao.UserDao;
 import ru.bellintegrator.practice.user.error.UserAlreadyExistsException;
@@ -19,6 +20,7 @@ public class UserDaoImpl implements UserDao {
 
     private EntityManager em;
 
+    @Autowired
     public UserDaoImpl(EntityManager em) {
         this.em = em;
     }

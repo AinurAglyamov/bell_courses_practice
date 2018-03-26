@@ -1,25 +1,31 @@
 package ru.bellintegrator.practice.employee.dao.impl;
 
 import com.google.common.base.Strings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.employee.dao.EmployeeDao;
 import ru.bellintegrator.practice.employee.error.EmployeeNotFoundException;
 import ru.bellintegrator.practice.employee.model.Employee;
+import ru.bellintegrator.practice.employee.view.report.ReportFilter;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
-
     private EntityManager em;
 
+    @Autowired
     public EmployeeDaoImpl(EntityManager em) {
         this.em = em;
     }
@@ -136,5 +142,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
         List<Employee> employees = em.createQuery(employeeCriteriaQuery).getResultList();
 
         return employees;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Employee> loadBySalaryAndRegDate(ReportFilter filter){
+        BigDecimal salaryFrom = filter.salaryFrom;
+        BigDecimal salaryTo = filter.salaryTo;
+        Date dateFrom = filter.dateFrom;
+        Date dateTo = filter.dateTo;
+
+        return em.createQuery("SELECT e FROM Employee e WHERE e.salary BETWEEN :salaryFrom AND :salaryTo AND e.registrationDate BETWEEN :dateFrom AND :dateTo", Employee.class)
+                .setParameter("salaryFrom", salaryFrom)
+                .setParameter("salaryTo", salaryTo)
+                .setParameter("dateFrom", dateFrom, TemporalType.DATE)
+                .setParameter("dateTo", dateTo, TemporalType.DATE)
+                .getResultList();
+
     }
 }
