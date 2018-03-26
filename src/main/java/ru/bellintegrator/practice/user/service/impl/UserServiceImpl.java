@@ -61,22 +61,6 @@ public class UserServiceImpl implements UserService{
         userDao.save(user);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Transactional
-    public void activate(String activationCode) {
-        if(Strings.isNullOrEmpty(activationCode)){
-            throw new IllegalArgumentException("activationCode is wrong");
-        }
-
-        String code = encodingService.encode(activationCode);
-        User user = userDao.findByCode(code);
-        user.setActive(true);
-
-
-    }
 
     /**
      * {@inheritDoc}
@@ -86,7 +70,6 @@ public class UserServiceImpl implements UserService{
     public void login(UserLoginView view) {
         log.info("login = " + view.login + " password = " + view.password);
 
-        //checkUser(view);
         if(Strings.isNullOrEmpty(view.login)){
             throw new IllegalArgumentException("login is wrong");
         }

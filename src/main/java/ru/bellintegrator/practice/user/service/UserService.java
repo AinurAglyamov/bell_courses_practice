@@ -14,13 +14,6 @@ public interface UserService {
     void save(UserView view);
 
     /**
-     * activate User
-     *
-     * @param activationCode
-     */
-    void activate(String activationCode);
-
-    /**
      *
      * login User
      *

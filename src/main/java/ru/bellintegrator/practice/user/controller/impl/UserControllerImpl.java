@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.user.controller.UserController;
+import ru.bellintegrator.practice.user.service.ActivationService;
 import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
 import ru.bellintegrator.practice.user.view.UserLoginView;
@@ -18,10 +19,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserControllerImpl implements UserController{
 
     private UserService userService;
+    private ActivationService activationService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public UserControllerImpl(UserService userService, ActivationService activationService) {
         this.userService = userService;
+        this.activationService = activationService;
     }
 
     /**
@@ -41,7 +44,7 @@ public class UserControllerImpl implements UserController{
     @ApiOperation(value = "activate User", httpMethod = "GET")
     @GetMapping("/activation")
     public void activate(@RequestParam String code) {
-        userService.activate(code);
+        activationService.activate(code);
     }
 
     /**
