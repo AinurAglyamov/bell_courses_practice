@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -71,7 +70,7 @@ public class OfficeServiceTest {
         organization.setInn("0101010101");
         organization.setKpp("010101010");
         organization.setAddress("Grove Street");
-        organization.setCountry(country);
+        organization.setCountry(new Country(643, "Российская федерация"));
         organization.setPhone("7 (911) 333-12-44");
         organization.setActive(true);
     }

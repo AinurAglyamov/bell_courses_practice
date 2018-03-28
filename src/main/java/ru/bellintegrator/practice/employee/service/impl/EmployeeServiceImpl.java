@@ -34,6 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     private DocumentTypeDao documentTypeDao;
     private CountryDao countryDao;
 
+    public EmployeeServiceImpl() {
+    }
+
     @Autowired
     public EmployeeServiceImpl(EmployeeDao employeeDao, OfficeDao officeDao, DocumentTypeDao documentTypeDao, CountryDao countryDao) {
         this.employeeDao = employeeDao;
