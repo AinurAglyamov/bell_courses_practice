@@ -42,7 +42,7 @@ public class OfficeDaoTest {
 
         office.setName("Офис в Центре");
         office.setAddress("г. Казань, ул. Габдуллы Тукая, д. 46");
-        office.setPhone("+7 (843) 511-72-25");
+        office.setPhone("7 (843) 511-72-25");
         office.setActive(true);
 
         organization = new Organization();

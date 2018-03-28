@@ -27,15 +27,15 @@ public class OfficeServiceImpl implements OfficeService {
     private OfficeDao dao;
     private OrganizationDao orgDao;
 
-    @Autowired
-    public void setDao(OfficeDao dao) {
-        this.dao = dao;
+    public OfficeServiceImpl() {
     }
 
     @Autowired
-    public void setOrgDao(OrganizationDao orgDao) {
+    public OfficeServiceImpl(OfficeDao dao, OrganizationDao orgDao) {
+        this.dao = dao;
         this.orgDao = orgDao;
     }
+
 
     /**
      * {@inheritDoc}
@@ -75,7 +75,7 @@ public class OfficeServiceImpl implements OfficeService {
 
         if(view.orgId == null) {
             throw new IllegalArgumentException("officeId is null");
-        }/**/
+        }
 
         Office office = new Office();
 

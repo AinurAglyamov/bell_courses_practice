@@ -32,7 +32,7 @@ public class OrganizationDaoTest {
     @Autowired
     private OrganizationDao organizationDao;
 
-   @Autowired
+    @Autowired
     private CountryDao countryDao;
 
     private Organization organization;
