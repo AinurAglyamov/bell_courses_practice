@@ -25,6 +25,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationDao organizationDao;
     private CountryDao countryDao;
 
+    public OrganizationServiceImpl() {
+    }
+
     @Autowired
     public OrganizationServiceImpl(OrganizationDao organizationDao, CountryDao countryDao) {
         this.organizationDao = organizationDao;
@@ -195,6 +198,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         if ((phone != null) && (!checkPhone(phone))) {
             throw new IllegalArgumentException("orgPhone is wrong");
         }
+
+
 
     }
 

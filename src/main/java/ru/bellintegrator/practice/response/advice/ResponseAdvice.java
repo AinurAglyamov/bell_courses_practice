@@ -18,14 +18,14 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        //return methodParameter.getContainingClass().getPackage().getName().equals("ru.bellintegrator.practice.organization.controller.impl");
-        return methodParameter.getContainingClass().getName().endsWith("Impl"); //без этого swagger не работает
-        //return true;
+       return methodParameter.getContainingClass().getName().endsWith("Impl");
     }
 
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         ResponseView view = new ResponseView();
+
+        log.info(methodParameter.getParameterType().getSimpleName());
 
         if(methodParameter.getParameterType().getSimpleName().equals("void")) {
             view.result = "success";

@@ -13,29 +13,31 @@ public interface OrganizationController {
 
     /**
      * Get organization by id
-     * @param id
+     * @param id organization id
      * @return JSON organization value
      */
     OrganizationView organizationById(@PathVariable Long id);
 
     /**
+     *
      * create Organization
      *
-     * @param organization
+     * @param organization organization need to be saved
+     * @return JSON organization value
      */
     OrganizationView createOrganization(@RequestBody OrganizationToSave organization);
 
     /**
      * update Organization
      *
-     * @param organization
+     * @param organization organization need to be updated
      */
     void updateOrganization(@RequestBody OrganizationView organization);
 
     /**
      * delete Organization
      *
-     * @param id
+     * @param id organization id which need to be deleted
      */
     void deleteOrganization(@PathVariable Long id);
 

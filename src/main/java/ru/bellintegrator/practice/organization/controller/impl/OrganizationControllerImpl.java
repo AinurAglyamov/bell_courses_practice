@@ -27,6 +27,9 @@ public class OrganizationControllerImpl implements OrganizationController{
         this.organizationService = organizationService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ApiOperation(value = "get Organization by id", httpMethod = "GET")
     @GetMapping("/{id}")
@@ -34,6 +37,9 @@ public class OrganizationControllerImpl implements OrganizationController{
         return organizationService.loadById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ApiOperation(value = "create Organization", httpMethod = "POST")
     @PostMapping("/create")
@@ -41,6 +47,9 @@ public class OrganizationControllerImpl implements OrganizationController{
         return organizationService.save(organization);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ApiOperation(value = "update Organization", httpMethod = "POST")
     @PostMapping("/update")
@@ -48,6 +57,9 @@ public class OrganizationControllerImpl implements OrganizationController{
         organizationService.update(organization);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ApiOperation(value = "delete Organization", httpMethod = "GET")
     @GetMapping("/delete/{id}")
@@ -56,6 +68,9 @@ public class OrganizationControllerImpl implements OrganizationController{
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @ApiOperation(value = "get Organization list", httpMethod = "POST")
     @PostMapping("/list")

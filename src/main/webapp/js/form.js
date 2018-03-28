@@ -72,7 +72,7 @@ $(document).ready(function () {
             isActive: $("#inputActive").is(':checked')
         };
         $.ajax({
-            url:"/api/organization/save",
+            url:"/api/organization/create",
             type:"POST",
             data: JSON.stringify(organization),
             contentType:"application/json; charset=utf-8",
@@ -109,8 +109,8 @@ $(document).ready(function () {
     $("#deleteOrganization").click(function () {
         var id = $("#inputDeletedId").val();
         $.ajax({
-            url:"/api/organization/delete",
-            type:"POST",
+            url:"/api/organization/delete/" + id,
+            type:"GET",
             data: id,
             contentType:"application/json; charset=utf-8",
             dataType:"json",
