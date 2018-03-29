@@ -1,9 +1,11 @@
 package ru.bellintegrator.practice.user.service.impl;
 
 import com.google.common.base.Strings;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bellintegrator.practice.user.dao.UserDao;
@@ -23,6 +25,10 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
     private EncodingService encodingService;
 
+    public UserServiceImpl() {
+    }
+
+    @Autowired
     public UserServiceImpl(UserDao userDao, EncodingService encodingService) {
         this.userDao = userDao;
         this.encodingService = encodingService;
@@ -81,7 +87,11 @@ public class UserServiceImpl implements UserService{
         String login = view.login;
         String password = encodingService.encode(view.password);
 
+        log.info("login = " + login + " password = " + password);
+
         User user = userDao.findByLoginAndPassword(login, password);
+
+        log.info(user.toString());
 
         if(!user.isActive()){
             throw new UserIsNotActivatedException("Пользователь не активирован");

@@ -15,6 +15,9 @@ public class ActivationServiceImpl implements ActivationService {
     private EncodingService encodingService;
     private UserDao userDao;
 
+    public ActivationServiceImpl() {
+    }
+
     @Autowired
     public ActivationServiceImpl(EncodingService encodingService, UserDao userDao) {
         this.encodingService = encodingService;

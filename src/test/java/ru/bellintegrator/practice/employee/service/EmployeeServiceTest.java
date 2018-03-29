@@ -196,7 +196,7 @@ public class EmployeeServiceTest {
         employee1.setSecondName("Меладзе");
         employee1.setMiddleName("Константинович");
         employee1.setPosition("Инженер");
-        employee1.setPhone("+7 (937) 421-34-81");
+        employee1.setPhone("7 (937) 421-34-81");
         employee1.setDocNumber("0933987656");
         employee1.setDocDate(new Date(1521809079));
         employee1.setCountry(country);
