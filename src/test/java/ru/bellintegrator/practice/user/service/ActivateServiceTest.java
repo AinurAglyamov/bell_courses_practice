@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.user.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -9,19 +8,13 @@ import static org.junit.Assert.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import ru.bellintegrator.practice.Application;
 import ru.bellintegrator.practice.user.dao.UserDao;
 import ru.bellintegrator.practice.user.error.UserNotFoundException;
 import ru.bellintegrator.practice.user.model.User;
 import ru.bellintegrator.practice.user.service.impl.ActivationServiceImpl;
-import ru.bellintegrator.practice.user.service.impl.UserServiceImpl;
 
 import static org.mockito.Mockito.*;
 

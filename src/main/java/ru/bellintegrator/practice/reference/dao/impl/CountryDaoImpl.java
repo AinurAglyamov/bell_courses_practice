@@ -7,7 +7,6 @@ import ru.bellintegrator.practice.reference.error.CountryNotFoundException;
 import ru.bellintegrator.practice.reference.model.Country;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 

@@ -1,12 +1,10 @@
 package ru.bellintegrator.practice.office.controller;
 
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.bellintegrator.practice.office.view.OfficeFilter;
 import ru.bellintegrator.practice.office.view.OfficeToSave;
 import ru.bellintegrator.practice.office.view.OfficeView;
-import ru.bellintegrator.practice.organization.view.OrganizationToSave;
 
 import java.util.List;
 

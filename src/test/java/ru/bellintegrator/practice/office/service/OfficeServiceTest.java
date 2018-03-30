@@ -58,7 +58,6 @@ public class OfficeServiceTest {
 
 
     private Organization organization;
-    private Country country;
 
     @Before
     public void setUp(){

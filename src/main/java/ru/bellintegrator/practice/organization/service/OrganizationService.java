@@ -1,6 +1,6 @@
 package ru.bellintegrator.practice.organization.service;
 
-import ru.bellintegrator.practice.organization.model.Organization;
+
 import ru.bellintegrator.practice.organization.view.OrganizationFilter;
 import ru.bellintegrator.practice.organization.view.OrganizationToSave;
 import ru.bellintegrator.practice.organization.view.OrganizationView;

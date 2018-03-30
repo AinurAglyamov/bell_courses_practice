@@ -10,13 +10,6 @@ public class OfficeFilter {
     public OfficeFilter() {
     }
 
-    public OfficeFilter(Long orgId, String name, String phone, Boolean isActive) {
-        this.orgId = orgId;
-        this.name = name;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
-
     @Override
     public String toString() {
         return "{" +

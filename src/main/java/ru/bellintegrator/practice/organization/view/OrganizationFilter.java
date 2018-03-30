@@ -9,11 +9,6 @@ public class OrganizationFilter {
     public OrganizationFilter() {
     }
 
-    public OrganizationFilter(String name, String inn, Boolean isActive) {
-        this.name = name;
-        this.inn = inn;
-        this.isActive = isActive;
-    }
 
     @Override
     public String toString() {

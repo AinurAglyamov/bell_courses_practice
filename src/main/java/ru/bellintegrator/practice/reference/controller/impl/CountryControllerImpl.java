@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.reference.controller.CountryController;
-import ru.bellintegrator.practice.reference.model.Country;
 import ru.bellintegrator.practice.reference.service.CountryService;
 import ru.bellintegrator.practice.reference.view.CountryView;
 

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.bellintegrator.practice.response.view.ResponseView;
-import ru.bellintegrator.practice.user.error.UserAlreadyExistsException;
 import ru.bellintegrator.practice.user.error.UserException;
 
 @RestControllerAdvice

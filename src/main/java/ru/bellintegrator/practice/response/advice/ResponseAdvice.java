@@ -35,6 +35,6 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         }
 
         view.data = o;
-        return view;/**/
+        return view;
     }
 }

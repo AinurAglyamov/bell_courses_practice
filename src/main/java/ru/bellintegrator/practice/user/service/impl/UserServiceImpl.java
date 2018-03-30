@@ -1,7 +1,6 @@
 package ru.bellintegrator.practice.user.service.impl;
 
 import com.google.common.base.Strings;
-import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.office.dao.OfficeDao;
 import ru.bellintegrator.practice.office.error.OfficeNotFoundException;
 import ru.bellintegrator.practice.office.model.Office;
-import ru.bellintegrator.practice.organization.error.OrganizationNotFoundException;
-import ru.bellintegrator.practice.organization.model.Organization;
-
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -84,7 +81,6 @@ public class OfficeDaoImpl implements OfficeDao {
      */
     @Override
     public List<Office> list(Office office) {
-        //Organization organization = office.getOrganization();
         Long orgId = office.getOrganization().getId();
         String name = office.getName();
         String phone = office.getPhone();

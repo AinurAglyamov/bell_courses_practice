@@ -2,16 +2,13 @@ package ru.bellintegrator.practice.employee.dao.impl;
 
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.employee.dao.EmployeeDao;
 import ru.bellintegrator.practice.employee.error.EmployeeNotFoundException;
 import ru.bellintegrator.practice.employee.model.Employee;
 import ru.bellintegrator.practice.employee.view.report.ReportFilter;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TemporalType;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;

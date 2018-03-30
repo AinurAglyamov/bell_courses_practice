@@ -85,10 +85,4 @@ public class UserDaoImpl implements UserDao {
 
         return users.get(0);
     }
-
-    /*public List<User> list(){
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
-        List<User> users = query.getResultList();
-        return users;
-    }*/
 }

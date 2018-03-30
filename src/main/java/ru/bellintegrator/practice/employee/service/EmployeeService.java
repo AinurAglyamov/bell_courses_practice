@@ -1,15 +1,10 @@
 package ru.bellintegrator.practice.employee.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import ru.bellintegrator.practice.employee.model.Employee;
 import ru.bellintegrator.practice.employee.view.EmployeeFilter;
 import ru.bellintegrator.practice.employee.view.EmployeeToSave;
 import ru.bellintegrator.practice.employee.view.EmployeeView;
 import ru.bellintegrator.practice.employee.view.report.ReportFilter;
 import ru.bellintegrator.practice.employee.view.report.ReportView;
-import ru.bellintegrator.practice.office.view.OfficeView;
 
 import java.util.List;
 

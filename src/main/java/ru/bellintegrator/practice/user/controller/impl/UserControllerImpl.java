@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.user.controller.UserController;
 import ru.bellintegrator.practice.user.service.ActivationService;
-import ru.bellintegrator.practice.user.service.EncodingService;
 import ru.bellintegrator.practice.user.service.UserService;
 import ru.bellintegrator.practice.user.view.UserLoginView;
 import ru.bellintegrator.practice.user.view.UserView;

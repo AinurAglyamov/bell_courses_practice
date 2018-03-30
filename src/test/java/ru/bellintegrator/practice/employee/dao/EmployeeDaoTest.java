@@ -78,7 +78,7 @@ public class EmployeeDaoTest {
 
         office.addEmployee(employee);
         officeDao.save(office);
-        //employeeDao.save(employee);
+
 
     }
 
@@ -130,7 +130,6 @@ public class EmployeeDaoTest {
 
     @Test
     public void testList() {
-        //officeDao.save(office);
 
         Employee employee1 = new Employee();
         employee1.setOffice(office);

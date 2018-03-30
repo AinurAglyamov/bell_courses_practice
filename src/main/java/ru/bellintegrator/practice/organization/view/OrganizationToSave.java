@@ -14,17 +14,6 @@ public class OrganizationToSave {
     public OrganizationToSave() {
     }
 
-    public OrganizationToSave(String name, String fullName, String inn, String kpp, Integer countryCode, String address, String phone, Boolean isActive) {
-        this.name = name;
-        this.fullName = fullName;
-        this.inn = inn;
-        this.kpp = kpp;
-        this.countryCode = countryCode;
-        this.address = address;
-        this.phone = phone;
-        this.isActive = isActive;
-    }
-
     @Override
     public String toString() {
         return "OrganizationToSave{" +

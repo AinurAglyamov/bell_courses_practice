@@ -13,8 +13,6 @@ import ru.bellintegrator.practice.office.view.OfficeView;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping(value = "/api/office", produces = APPLICATION_JSON_VALUE)

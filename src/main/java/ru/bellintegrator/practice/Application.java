@@ -21,7 +21,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
 @SpringBootApplication(scanBasePackages = "ru.bellintegrator.practice.*", exclude = ru.bellintegrator.practice.response.advice.ResponseAdvice.class)
-//@ComponentScan(basePackages = {"ru.bellintegrator.practice.*"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "ru.bellintegrator.practice.response.advice.*"))
 @Profile({"development", "test"})
 public class Application {
 
@@ -67,4 +66,3 @@ public class Application {
 
 
 }
-//.pathMapping("/")
