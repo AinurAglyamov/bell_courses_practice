@@ -121,7 +121,7 @@ public class OfficeDaoTest {
         office1.setOrganization(organization);
         office1.setName("Офис в Центре");
         office1.setAddress("г. Казань, ул. Габдуллы Тукая, д. 46");
-        office1.setPhone("+7 (843) 511-72-25");
+        office1.setPhone("7 (843) 511-72-25");
         office1.setActive(true);
 
         List<Office> offices = officeDao.list(office1);
