@@ -20,7 +20,6 @@ import ru.bellintegrator.practice.reference.dao.CountryDao;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})

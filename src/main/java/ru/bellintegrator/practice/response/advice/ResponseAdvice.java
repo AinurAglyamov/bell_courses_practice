@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.response.advice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import ru.bellintegrator.practice.response.view.ResponseView;
 
 @RestControllerAdvice
+@Profile("!test")
 public class ResponseAdvice implements ResponseBodyAdvice<Object> {
 
     private Logger log = LoggerFactory.getLogger(ResponseAdvice.class);

@@ -1,20 +1,13 @@
 package ru.bellintegrator.practice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import ru.bellintegrator.practice.organization.controller.impl.OrganizationControllerImpl;
-import ru.bellintegrator.practice.organization.dao.impl.OrganizationDaoImpl;
-import ru.bellintegrator.practice.organization.service.impl.OrganizationServiceImpl;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -27,8 +20,9 @@ import java.util.Locale;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @EnableSwagger2
-//@ImportResource("spring_mvc_config.xml")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ru.bellintegrator.practice.*", exclude = ru.bellintegrator.practice.response.advice.ResponseAdvice.class)
+//@ComponentScan(basePackages = {"ru.bellintegrator.practice.*"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "ru.bellintegrator.practice.response.advice.*"))
+@Profile({"development", "test"})
 public class Application {
 
     public static void main(String[] args) {

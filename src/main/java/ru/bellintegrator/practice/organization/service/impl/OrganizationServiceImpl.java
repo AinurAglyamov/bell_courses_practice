@@ -93,6 +93,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         OrganizationView organizationView = new OrganizationView();
         organizationView.id = organization.getId();
 
+        log.info("id of saved organization = " + organizationView.id);
+
         return organizationView;
 
     }
