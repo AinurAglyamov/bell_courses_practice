@@ -29,6 +29,9 @@ public class CountryDaoImpl implements CountryDao {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Country findByCodeAndName(Integer code, String name) {
         if(code == null) {
@@ -53,6 +56,9 @@ public class CountryDaoImpl implements CountryDao {
         return countries.get(0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Country findByCode(Integer code) {
         if(code == null) {
@@ -69,5 +75,29 @@ public class CountryDaoImpl implements CountryDao {
         }
 
         return countries.get(0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateCountries(List<Country> countries) {
+        TypedQuery<Country> query = em.createNamedQuery("findCountryByCode", Country.class);
+
+        for(Country country : countries) {
+            Integer code = country.getCode();
+            String name = country.getName();
+
+            query.setParameter("code", code);
+
+            List<Country> result = query.getResultList();
+
+            if(!result.isEmpty()){
+                Country countryToUpdate = result.get(0);
+                countryToUpdate.setName(name);
+            } else {
+                em.persist(country);
+            }
+        }
     }
 }

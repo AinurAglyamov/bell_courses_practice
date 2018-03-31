@@ -36,4 +36,13 @@ public class CountryServiceImpl implements CountryService {
 
         return countries.stream().map(mapCountry).collect(Collectors.toList());
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void updateCountries(List<Country> countries) {
+        dao.updateCountries(countries);
+    }
 }

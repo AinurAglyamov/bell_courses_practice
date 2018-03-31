@@ -32,4 +32,13 @@ public interface CountryDao {
      * @return Country value
      */
     Country findByCode(Integer code);
+
+
+    /**
+     *
+     * update Countries
+     *
+     * @param countries
+     */
+    void updateCountries(List<Country> countries);
 }
