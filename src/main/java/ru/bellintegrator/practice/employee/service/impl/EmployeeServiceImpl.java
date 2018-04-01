@@ -246,26 +246,32 @@ public class EmployeeServiceImpl implements EmployeeService{
         String docNumber = employee.getDocNumber();
         Date docDate = employee.getDocDate();
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if((firstName == null) || (!checkName(firstName))){
-            throw new IllegalArgumentException("employeeFirstName is wrong");
+            errorMessage.append("employeeFirstName is wrong; ");
         }
         if((secondName == null) || (!checkName(secondName))){
-            throw new IllegalArgumentException("employeeSecondName is wrong");
+            errorMessage.append("employeeSecondName is wrong; ");
         }
         if((middleName != null) && (!checkName(middleName))){
-            throw new IllegalArgumentException("employeeMiddleName is wrong");
+            errorMessage.append("employeeMiddleName is wrong; ");
         }
 
         if((phone != null) && (!checkPhone(phone))) {
-            throw new IllegalArgumentException("employeePhone is wrong");
+            errorMessage.append("employeePhone is wrong; ");
         }
 
         if(Strings.isNullOrEmpty(docNumber)){
-            throw new IllegalArgumentException("docNumber is wrong");
+            errorMessage.append("docNumber is wrong; ");
         }
 
         if(docDate == null) {
-            throw new IllegalArgumentException("docDate is wrong");
+            errorMessage.append("docDate is wrong; ");
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
         }
 
     }
@@ -278,21 +284,27 @@ public class EmployeeServiceImpl implements EmployeeService{
         String position = filter.position;
         Integer citizenshipCode = filter.citizenshipCode;
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if((officeId != null) || (!Strings.isNullOrEmpty(firstName)) || (!Strings.isNullOrEmpty(middleName)) || (!Strings.isNullOrEmpty(position)) || (citizenshipCode != null)) {
             officeDao.loadById(officeId);
 
             if((firstName != null) && (!checkName(firstName))) {
-                throw new IllegalArgumentException("firstName is wrong");
+                errorMessage.append("firstName is wrong; ");
             }
 
             if((secondName != null) && (!checkName(secondName))) {
-                throw new IllegalArgumentException("firstName is wrong");
+                errorMessage.append("secondName is wrong; ");
             }
 
             if((middleName != null) && (!checkName(middleName))) {
-                throw new IllegalArgumentException("firstName is wrong");
+                errorMessage.append("middleName is wrong; ");
             }
 
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
         }
 
     }
@@ -304,20 +316,26 @@ public class EmployeeServiceImpl implements EmployeeService{
         BigDecimal salaryFrom = filter.salaryFrom;
         BigDecimal salaryTo = filter.salaryTo;
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if(dateFrom == null){
-            throw new IllegalArgumentException("dateFrom is wrong");
+            errorMessage.append("dateFrom is wrong; ");
         }
 
         if((dateTo == null) || (dateTo.compareTo(dateFrom) < 0)){
-            throw new IllegalArgumentException("dateTo is wrong");
+            errorMessage.append("dateTo is wrong; ");
         }
 
         if(salaryFrom == null) {
-            throw new IllegalArgumentException("salaryFrom is wrong");
+            errorMessage.append("salaryFrom is wrong; ");
         }
 
         if((salaryTo == null) || (salaryTo.compareTo(salaryFrom) < 0)){
-            throw new IllegalArgumentException("salaryTo is wrong");
+            errorMessage.append("salaryTo is wrong; ");
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
         }
 
 

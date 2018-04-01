@@ -75,12 +75,18 @@ public class UserServiceImpl implements UserService{
     public void login(UserLoginView view) {
         log.info("login = " + view.login + " password = " + view.password);
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if(Strings.isNullOrEmpty(view.login)){
-            throw new IllegalArgumentException("login is wrong");
+            errorMessage.append("login is wrong; ");
         }
 
         if(Strings.isNullOrEmpty(view.password)){
-            throw new IllegalArgumentException("password is wrong");
+            errorMessage.append("password is wrong; ");
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new UserIsNotActivatedException(errorMessage.toString());
         }
 
         String login = view.login;
@@ -99,20 +105,27 @@ public class UserServiceImpl implements UserService{
     }
 
     private void checkUser(UserView view) {
+
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if(Strings.isNullOrEmpty(view.login)){
-            throw new IllegalArgumentException("login is wrong");
+            errorMessage.append("login is wrong; ");
         }
 
         if(Strings.isNullOrEmpty(view.password)){
-            throw new IllegalArgumentException("password is wrong");
+            errorMessage.append("password is wrong; ");
         }
 
         if((view.name != null) && (!checkName(view.name))){
-            throw new IllegalArgumentException("name is wrong");
+            errorMessage.append("name is wrong; ");
         }
 
         if((view.email != null) && (!checkEmail(view.email))){
-            throw new IllegalArgumentException("email is wrong");
+            errorMessage.append("email is wrong; ");
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
         }
     }
 

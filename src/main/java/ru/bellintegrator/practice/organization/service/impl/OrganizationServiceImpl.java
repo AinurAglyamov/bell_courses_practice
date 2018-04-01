@@ -181,27 +181,31 @@ public class OrganizationServiceImpl implements OrganizationService {
         String address = organization.getAddress();
         String phone = organization.getPhone();
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if (Strings.isNullOrEmpty(fullName)) {
-            throw new IllegalArgumentException("orgFullName is wrong");
+            errorMessage.append("orgFullName is wrong; ");
         }
 
         if ((inn == null) || (!checkInn(inn))) {
-            throw new IllegalArgumentException("orgInn is wrong");
+            errorMessage.append("orgInn is wrong; ");
         }
 
         if ((kpp == null) || (!checkKpp(kpp))) {
-            throw new IllegalArgumentException("orgKpp is wrong");
+            errorMessage.append("orgKpp is wrong; ");
         }
 
         if (Strings.isNullOrEmpty(address)) {
-            throw new IllegalArgumentException("address is wrong");
+            errorMessage.append("address is wrong; ");
         }
 
         if ((phone != null) && (!checkPhone(phone))) {
-            throw new IllegalArgumentException("orgPhone is wrong");
+            errorMessage.append("orgPhone is wrong; ");
         }
 
-
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
+        }
 
     }
 
@@ -210,8 +214,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         String inn = filter.inn;
         Boolean isActive = filter.isActive;
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if((!Strings.isNullOrEmpty(name)) || (!Strings.isNullOrEmpty(inn)) || (isActive != null)){
             if(Strings.isNullOrEmpty(name)){
+                errorMessage.append("orgName is null");
                 throw new IllegalArgumentException("orgName is null");
             }
             if ((!Strings.isNullOrEmpty(inn)) && (!checkInn(inn))) {

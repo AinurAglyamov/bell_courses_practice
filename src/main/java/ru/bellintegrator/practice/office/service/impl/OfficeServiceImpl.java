@@ -171,16 +171,22 @@ public class OfficeServiceImpl implements OfficeService {
         String address = office.getAddress();
         String phone = office.getPhone();
 
+        StringBuilder errorMessage = new StringBuilder(200);
+
         if (Strings.isNullOrEmpty(name)) {
-            throw new IllegalArgumentException("officeName is wrong");
+            errorMessage.append("officeName is wrong; ");
         }
 
         if (Strings.isNullOrEmpty(address)) {
-            throw new IllegalArgumentException("officeAddress is wrong");
+            errorMessage.append("officeAddress is wrong; ");
         }
 
         if ((phone != null) && (!checkPhone(phone))) {
-            throw new IllegalArgumentException("officePhone is wrong");
+            errorMessage.append("officePhone is wrong; ");
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
         }
 
     }
