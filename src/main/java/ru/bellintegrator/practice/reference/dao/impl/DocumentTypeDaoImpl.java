@@ -34,14 +34,28 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
     public DocumentType findByCode(Integer code) {
         TypedQuery<DocumentType> query = em.createNamedQuery("findDocTypeByCode", DocumentType.class);
         query.setParameter("code", code);
-        return query.getSingleResult();
+
+        List<DocumentType> documentTypes = query.getResultList();
+
+        if(documentTypes.isEmpty()){
+            throw new DocumentTypeNotFoundException("document type with code = " + code + " is not exists");
+        }
+
+        return documentTypes.get(0);
     }
 
     @Override
     public DocumentType findByName(String name) {
         TypedQuery<DocumentType> query = em.createNamedQuery("findDocTypeByName", DocumentType.class);
         query.setParameter("name", name);
-        return query.getSingleResult();
+
+        List<DocumentType> documentTypes = query.getResultList();
+
+        if(documentTypes.isEmpty()){
+            throw new DocumentTypeNotFoundException("document type with name = " + name + " is not exists");
+        }
+
+        return documentTypes.get(0);
     }
 
     @Override
@@ -59,14 +73,12 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
         query.setParameter("code", code);
         query.setParameter("name", name);
 
-        DocumentType documentType = null;
+        List<DocumentType> documentTypes = query.getResultList();
 
-        try {
-            documentType = query.getSingleResult();
-        } catch (NoResultException e) {
-            throw new DocumentTypeNotFoundException(code, name);
+        if(documentTypes.isEmpty()){
+            throw new DocumentTypeNotFoundException("document type with code = " + name + " and name = " + name + " is not exists");
         }
 
-        return documentType;
+        return documentTypes.get(0);
     }
 }

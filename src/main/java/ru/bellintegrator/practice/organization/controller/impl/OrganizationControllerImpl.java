@@ -59,8 +59,8 @@ public class OrganizationControllerImpl implements OrganizationController{
      * {@inheritDoc}
      */
     @Override
-    @ApiOperation(value = "delete Organization", httpMethod = "GET")
-    @GetMapping("/delete/{id}")
+    @ApiOperation(value = "delete Organization", httpMethod = "POST")
+    @PostMapping("/delete/{id}")
     public void deleteOrganization(@PathVariable Long id) {
         organizationService.delete(id);
     }

@@ -219,11 +219,14 @@ public class OrganizationServiceImpl implements OrganizationService {
         if((!Strings.isNullOrEmpty(name)) || (!Strings.isNullOrEmpty(inn)) || (isActive != null)){
             if(Strings.isNullOrEmpty(name)){
                 errorMessage.append("orgName is null");
-                throw new IllegalArgumentException("orgName is null");
             }
             if ((!Strings.isNullOrEmpty(inn)) && (!checkInn(inn))) {
-                throw new IllegalArgumentException("orgInn is wrong");
+                errorMessage.append("orgInn is wrong");
             }
+        }
+
+        if(errorMessage.length() != 0) {
+            throw new IllegalArgumentException(errorMessage.toString());
         }
 
     }
