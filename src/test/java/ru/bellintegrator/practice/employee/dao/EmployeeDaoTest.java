@@ -119,13 +119,18 @@ public class EmployeeDaoTest {
         assertEquals(newPosition, updatedEmployee.getPosition());
     }
 
-    @Test(expected = EmployeeNotFoundException.class)
+    @Test
     public void testDelete() {
+
         Long id = employee.getId();
+        Office office1 = employee.getOffice();
+
+        assertTrue(office1.getEmployees().contains(employee));
 
         employeeDao.delete(id);
 
-        employeeDao.loadById(id);
+        assertFalse(office1.getEmployees().contains(employee));
+        assertNull(employee.getOffice().getId());
     }
 
     @Test

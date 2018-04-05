@@ -82,7 +82,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void delete(Long id) {
         Employee employeeToDelete = loadById(id);
 
-        em.remove(employeeToDelete);
+        employeeToDelete.getOffice().removeEmployee(employeeToDelete);
     }
 
     /**

@@ -114,4 +114,16 @@ public class Office {
         getEmployees().remove(employee);
         employee.setOffice(null);
     }
+
+    @Override
+    public String toString() {
+        return "Office{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", isActive=" + isActive +
+                ", organization=" + organization +
+                '}';
+    }
 }

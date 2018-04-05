@@ -91,8 +91,8 @@ public class EmployeeServiceImpl implements EmployeeService{
         log.info("Employee to save: " + view);
 
         if(view.officeId == null) {
-            throw new IllegalArgumentException("orgId is null");
-        }/**/
+            throw new IllegalArgumentException("officeId is null");
+        }
 
         Employee employee = new Employee();
         employee.setFirstName(view.firstName);

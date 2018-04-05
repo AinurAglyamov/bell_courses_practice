@@ -7,6 +7,7 @@ import ru.bellintegrator.practice.reference.model.DocumentType;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 public class Employee {
@@ -208,4 +209,25 @@ public class Employee {
                 ", country=" + country +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(secondName, employee.secondName) &&
+                Objects.equals(middleName, employee.middleName) &&
+                Objects.equals(position, employee.position) &&
+                Objects.equals(salary, employee.salary) &&
+                Objects.equals(registrationDate, employee.registrationDate) &&
+                Objects.equals(phone, employee.phone) &&
+                Objects.equals(docNumber, employee.docNumber) &&
+                Objects.equals(docDate, employee.docDate) &&
+                Objects.equals(office, employee.office) &&
+                Objects.equals(documentType, employee.documentType) &&
+                Objects.equals(country, employee.country);
+    }
+
 }

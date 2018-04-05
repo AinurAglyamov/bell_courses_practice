@@ -109,7 +109,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
         if (view.id == null) {
             throw new IllegalArgumentException("id is null");
-        }/**/
+        }
 
         Organization organization = new Organization();
 
